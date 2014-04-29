@@ -1,0 +1,781 @@
+[4mInitializing[24m
+Command-line options: [36m--verbose[39m
+
+Reading "Gruntfile.js" Gruntfile...[32mOK[39m
+
+[1mRegistering Gruntfile tasks.[22m
+
+[1mRegistering "grunt-contrib-copy" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-copy/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-copy/package.json...[32mOK[39m
+Loading "copy.js" tasks...[32mOK[39m
++ [36mcopy[39m
+
+[1mRegistering "grunt-contrib-concat" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-concat/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-concat/package.json...[32mOK[39m
+Loading "concat.js" tasks...[32mOK[39m
++ [36mconcat[39m
+
+[1mRegistering "grunt-contrib-coffee" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-coffee/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-coffee/package.json...[32mOK[39m
+Loading "coffee.js" tasks...[32mOK[39m
++ [36mcoffee[39m
+
+[1mRegistering "grunt-contrib-uglify" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-uglify/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-uglify/package.json...[32mOK[39m
+Loading "uglify.js" tasks...[32mOK[39m
++ [36muglify[39m
+
+[1mRegistering "grunt-contrib-compass" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-compass/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-compass/package.json...[32mOK[39m
+Loading "compass.js" tasks...[32mOK[39m
++ [36mcompass[39m
+
+[1mRegistering "grunt-contrib-jshint" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-jshint/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-jshint/package.json...[32mOK[39m
+Loading "jshint.js" tasks...[32mOK[39m
++ [36mjshint[39m
+
+[1mRegistering "grunt-contrib-cssmin" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-cssmin/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-cssmin/package.json...[32mOK[39m
+Loading "cssmin.js" tasks...[32mOK[39m
++ [36mcssmin[39m
+
+[1mRegistering "grunt-contrib-connect" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-connect/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-connect/package.json...[32mOK[39m
+Loading "connect.js" tasks...[32mOK[39m
++ [36mconnect[39m
+
+[1mRegistering "grunt-contrib-clean" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-clean/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-clean/package.json...[32mOK[39m
+Loading "clean.js" tasks...[32mOK[39m
++ [36mclean[39m
+
+[1mRegistering "grunt-contrib-htmlmin" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-htmlmin/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-htmlmin/package.json...[32mOK[39m
+Loading "htmlmin.js" tasks...[32mOK[39m
++ [36mhtmlmin[39m
+
+[1mRegistering "grunt-contrib-imagemin" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-imagemin/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-imagemin/package.json...[32mOK[39m
+Loading "imagemin.js" tasks...[32mOK[39m
++ [36mimagemin[39m
+
+[1mRegistering "grunt-contrib-livereload" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-livereload/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-contrib-livereload/package.json...[32mOK[39m
+Loading "livereload.js" tasks...[32mOK[39m
++ [36mlivereload[39m, [36mlivereload-start[39m
+
+[1mRegistering "grunt-bower-requirejs" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-bower-requirejs/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-bower-requirejs/package.json...[32mOK[39m
+Loading "bower-requirejs.js" tasks...[32mOK[39m
++ [36mbower[39m
+
+[1mRegistering "grunt-usemin" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-usemin/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-usemin/package.json...[32mOK[39m
+Loading "usemin.js" tasks...[32mOK[39m
++ [36musemin[39m, [36museminPrepare[39m
+
+[1mRegistering "grunt-regarde" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-regarde/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-regarde/package.json...[32mOK[39m
+Loading "regarde.js" tasks...[32mOK[39m
++ [36mregarde[39m, [36mregardeReset[39m
+
+[1mRegistering "grunt-rev" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-rev/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-rev/package.json...[32mOK[39m
+Loading "rev.js" tasks...[32mOK[39m
++ [36mrev[39m
+
+[1mRegistering "grunt-karma" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-karma/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-karma/package.json...[32mOK[39m
+Loading "grunt-karma.js" tasks...[32mOK[39m
++ [36mkarma[39m
+
+[1mRegistering "grunt-open" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-open/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-open/package.json...[32mOK[39m
+Loading "open.js" tasks...[32mOK[39m
++ [36mopen[39m
+
+[1mRegistering "grunt-google-cdn" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-google-cdn/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-google-cdn/package.json...[32mOK[39m
+Loading "cdnify.js" tasks...[32mOK[39m
++ [36mcdnify[39m
+
+[1mRegistering "grunt-ngmin" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-ngmin/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-ngmin/package.json...[32mOK[39m
+Loading "ngmin.js" tasks...[32mOK[39m
++ [36mngmin[39m
+
+[1mRegistering "grunt-haml" local Npm module tasks.[22m
+Reading /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-haml/package.json...[32mOK[39m
+Parsing /Users/pmackay/dev/communityopendata/vizbuilder/node_modules/grunt-haml/package.json...[32mOK[39m
+Loading "haml.js" tasks...[32mOK[39m
++ [36mhaml[39m
+Initializing config...[32mOK[39m
+Loading "Gruntfile.js" tasks...[32mOK[39m
+- [36mregarde[39m
++ [36mbuild[39m, [36mdefault[39m, [36mserver[39m, [36mtest[39m, [36mwatch[39m
+
+No tasks specified, running default tasks.
+Running tasks: [36mdefault[39m
+
+[4mRunning "default" task[24m
+
+[4mRunning "build" task[24m
+
+[4mRunning "clean:dist" (clean) task[24m
+Verifying property [36mclean.dist[39m exists in config...[32mOK[39m
+Files: [36m.tmp[39m, [36mdist/.htaccess[39m, [36mdist/404.html[39m, [36mdist/components[39m, [36mdist/favicon.ico[39m, [36mdist/images[39m, [36mdist/index.html[39m, [36mdist/robots.txt[39m, [36mdist/scripts[39m, [36mdist/styles[39m
+Options: [36mforce=false[39m, [36mno-write=false[39m
+Options: [36mforce=false[39m, [36mno-write=false[39m
+Cleaning .tmp...[32mOK[39m
+Cleaning dist/.htaccess...[32mOK[39m
+Cleaning dist/404.html...[32mOK[39m
+Cleaning dist/components...[32mOK[39m
+Cleaning dist/favicon.ico...[32mOK[39m
+Cleaning dist/images...[32mOK[39m
+Cleaning dist/index.html...[32mOK[39m
+Cleaning dist/robots.txt...[32mOK[39m
+Cleaning dist/scripts...[32mOK[39m
+Cleaning dist/styles...[32mOK[39m
+
+[4mRunning "jshint" task[24m
+
+[4mRunning "jshint:all" (jshint) task[24m
+Verifying property [36mjshint.all[39m exists in config...[32mOK[39m
+Files: [36mGruntfile.js[39m -> [36mall[39m
+Options: [36mforce=false[39m, [36mreporterOutput=null[39m, [36mjshintrc=".jshintrc"[39m
+JSHint options: [36mforce=false[39m, [36mreporterOutput=null[39m, [36mjshintrc=".jshintrc"[39m
+[32mOK[39m
+[32m>> [39m1 file lint free.
+
+[4mRunning "coffee" task[24m
+
+[4mRunning "coffee:dist" (coffee) task[24m
+Verifying property [36mcoffee.dist[39m exists in config...[32mOK[39m
+Files: [36mapp/scripts/app.coffee[39m -> [36m.tmp/scripts/app.js[39m
+Files: [36mapp/scripts/controllers.coffee[39m -> [36m.tmp/scripts/controllers.js[39m
+Files: [36mapp/scripts/controllers/main.js.coffee[39m -> [36m.tmp/scripts/controllers/main.js[39m
+Files: [36mapp/scripts/services.coffee[39m -> [36m.tmp/scripts/services.js[39m
+Options: [36mbare=false[39m, [36mjoin=false[39m, [36msourceMap=false[39m, [36mseparator="\n"[39m
+Options: [36mbare=false[39m, [36mjoin=false[39m, [36msourceMap=false[39m, [36mseparator="\n"[39m
+Reading app/scripts/app.coffee...[32mOK[39m
+Writing .tmp/scripts/app.js...[32mOK[39m
+File .tmp/scripts/app.js created.
+Reading app/scripts/controllers.coffee...[32mOK[39m
+Writing .tmp/scripts/controllers.js...[32mOK[39m
+File .tmp/scripts/controllers.js created.
+Reading app/scripts/controllers/main.js.coffee...[32mOK[39m
+Writing .tmp/scripts/controllers/main.js...[32mOK[39m
+File .tmp/scripts/controllers/main.js created.
+Reading app/scripts/services.coffee...[32mOK[39m
+Writing .tmp/scripts/services.js...[32mOK[39m
+File .tmp/scripts/services.js created.
+
+[4mRunning "coffee:test" (coffee) task[24m
+Verifying property [36mcoffee.test[39m exists in config...[32mOK[39m
+Options: [36mbare=false[39m, [36mjoin=false[39m, [36msourceMap=false[39m, [36mseparator="\n"[39m
+Options: [36mbare=false[39m, [36mjoin=false[39m, [36msourceMap=false[39m, [36mseparator="\n"[39m
+
+[4mRunning "compass:dist" (compass) task[24m
+Verifying property [36mcompass.dist[39m exists in config...[32mOK[39m
+File: [33m[no files][39m
+Options: [36msassDir="app/styles"[39m, [36mcssDir=".tmp/styles"[39m, [36mimagesDir="app/images"[39m, [36mjavascriptsDir="app/scripts"[39m, [36mfontsDir="app/styles/fonts"[39m, [36mimportPath="app/components"[39m, [36mrelativeAssets[39m
+Options: [36msassDir="app/styles"[39m, [36mcssDir=".tmp/styles"[39m, [36mimagesDir="app/images"[39m, [36mjavascriptsDir="app/scripts"[39m, [36mfontsDir="app/styles/fonts"[39m, [36mimportPath="app/components"[39m, [36mrelativeAssets[39m
+[32mdirectory[0m .tmp/styles/ 
+[31m[0m[32m   create[0m .tmp/styles/datatable.css 
+
+[4mRunning "useminPrepare" task[24m
+
+[4mRunning "useminPrepare:html" (useminPrepare) task[24m
+Verifying property [36museminPrepare.html[39m exists in config...[32mOK[39m
+Files: [36mapp/index.html[39m -> [36mhtml[39m
+Options: [36mdest="dist"[39m
+Going through [36mapp/index.html[39m to update the config
+Looking for build script HTML comment blocks
+Reading app/index.html...[32mOK[39m
+
+[1mFound a block:[22m
+[36m    <!-- build:css styles/main.css -->[39m
+[36m    <!-- <link rel="stylesheet" href="styles/bootstrap.css"> -->[39m
+[36m    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">[39m
+[36m    <link rel="stylesheet" href="styles/main.css">[39m
+[36m    <link rel="stylesheet" href="styles/datatable.css">[39m
+[36m    <!-- endbuild -->[39m
+Updating config with the following assets:
+    - [36mapp/styles/bootstrap.css[39m
+    - [36mapp/netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css[39m
+    - [36mapp/styles/main.css[39m
+    - [36mapp/styles/datatable.css[39m
+
+[1mFound a block:[22m
+[36m    <!-- build:js scripts/scripts.js -->[39m
+[36m    <script src="scripts/app.js"></script>[39m
+[36m    <script src="scripts/services.js"></script>[39m
+[36m    <script src="scripts/controllers.js"></script>[39m
+[36m    <script src="scripts/controllers/main.js"></script>[39m
+[36m    <!-- endbuild -->[39m
+Updating config with the following assets:
+    - [36mapp/scripts/app.js[39m
+    - [36mapp/scripts/services.js[39m
+    - [36mapp/scripts/controllers.js[39m
+    - [36mapp/scripts/controllers/main.js[39m
+
+[1mConfiguration is now:[22m
+
+[1m  cssmin:[22m
+  { dist: 
+   { files: 
+      { [32m'<%= yeoman.dist %>/styles/main.css'[39m: 
+         [ [32m'.tmp/styles/{,*/}*.css'[39m,
+           [32m'app/styles/{,*/}*.css'[39m ] } },
+  [32m'dist/styles/main.css'[39m: [32m'dist/styles/main.css'[39m }
+
+[1m  concat:[22m
+  { dist: 
+   { files: 
+      { src: 
+         [ [32m'.tmp/scripts/*.js'[39m,
+           [32m'app/scripts/{,*/}*.js'[39m ],
+        dest: [32m'dist/scripts/scripts.js'[39m } },
+  [32m'dist/styles/main.css'[39m: 
+   [ [32m'app/styles/bootstrap.css'[39m,
+     [32m'app/netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css'[39m,
+     [32m'app/styles/main.css'[39m,
+     [32m'app/styles/datatable.css'[39m ],
+  [32m'dist/scripts/scripts.js'[39m: 
+   [ [32m'app/scripts/app.js'[39m,
+     [32m'app/scripts/services.js'[39m,
+     [32m'app/scripts/controllers.js'[39m,
+     [32m'app/scripts/controllers/main.js'[39m ] }
+
+[1m  uglify:[22m
+  { dist: { files: { [32m'<%= yeoman.dist %>/scripts/scripts.js'[39m: [ [32m'dist/scripts/scripts.js'[39m ] } },
+  [32m'dist/scripts/scripts.js'[39m: [32m'dist/scripts/scripts.js'[39m }
+
+[1m  requirejs:[22m
+  {}
+
+[4mRunning "imagemin" task[24m
+
+[4mRunning "imagemin:dist" (imagemin) task[24m
+Verifying property [36mimagemin.dist[39m exists in config...[32mOK[39m
+Files: [36mapp/images/chart_bar.png[39m -> [36mdist/images/chart_bar.png[39m
+Files: [36mapp/images/chart_donut_with_image.png[39m -> [36mdist/images/chart_donut_with_image.png[39m
+Files: [36mapp/images/chart_pie.png[39m -> [36mdist/images/chart_pie.png[39m
+Files: [36mapp/images/map_msoa.png[39m -> [36mdist/images/map_msoa.png[39m
+Options: [36m(none)[39m
+Options: [36m(none)[39m
+[32m✔ [39mapp/images/chart_pie.png[90m (saved 2.73Kb)[39m
+[32m✔ [39mapp/images/chart_donut_with_image.png[90m (saved 2.31Kb)[39m
+[32m✔ [39mapp/images/chart_bar.png[90m (saved 1.61Kb)[39m
+[32m✔ [39mapp/images/map_msoa.png[90m (saved 3.16Kb)[39m
+
+[4mRunning "cssmin" task[24m
+
+[4mRunning "cssmin:dist" (cssmin) task[24m
+Verifying property [36mcssmin.dist[39m exists in config...[32mOK[39m
+Files: [36m.tmp/styles/datatable.css[39m, [36mapp/styles/bootstrap.css[39m, [36mapp/styles/main.css[39m -> [36mdist/styles/main.css[39m
+Options: [36mreport=false[39m
+Reading .tmp/styles/datatable.css...[32mOK[39m
+Reading app/styles/bootstrap.css...[32mOK[39m
+Reading app/styles/main.css...[32mOK[39m
+Reading .tmp/styles/datatable.css...[32mOK[39m
+Reading app/styles/bootstrap.css...[32mOK[39m
+Reading app/styles/main.css...[32mOK[39m
+Writing dist/styles/main.css...[32mOK[39m
+File dist/styles/main.css created.
+
+[4mRunning "cssmin:dist/styles/main.css" (cssmin) task[24m
+Verifying property [36mcssmin.dist/styles/main\.css[39m exists in config...[32mOK[39m
+Files: [36mdist/styles/main.css[39m -> [36mdist/styles/main.css[39m
+Options: [36mreport=false[39m
+Reading dist/styles/main.css...[32mOK[39m
+Reading dist/styles/main.css...[32mOK[39m
+Writing dist/styles/main.css...[32mOK[39m
+File dist/styles/main.css created.
+
+[4mRunning "htmlmin" task[24m
+
+[4mRunning "htmlmin:dist" (htmlmin) task[24m
+Verifying property [36mhtmlmin.dist[39m exists in config...[32mOK[39m
+Files: [36mapp/404.html[39m -> [36mdist/404.html[39m
+Files: [36mapp/index.html[39m -> [36mdist/index.html[39m
+Options: [36m(none)[39m
+Options: [36m(none)[39m
+Reading app/404.html...[32mOK[39m
+Writing dist/404.html...[32mOK[39m
+File dist/404.html created.
+Reading app/index.html...[32mOK[39m
+Writing dist/index.html...[32mOK[39m
+File dist/index.html created.
+
+[4mRunning "concat" task[24m
+
+[4mRunning "concat:dist" (concat) task[24m
+Verifying property [36mconcat.dist[39m exists in config...[32mOK[39m
+Files: [36m.tmp/scripts/app.js[39m, [36m.tmp/scripts/controllers.js[39m, [36m.tmp/scripts/services.js[39m -> [36msrc[39m
+Files: [33m[no src][39m -> [36mdest[39m
+Options: [36mseparator="\n"[39m, [36mbanner=""[39m, [36mfooter=""[39m, [36mstripBanners=false[39m, [36mprocess=false[39m
+Reading .tmp/scripts/app.js...[32mOK[39m
+Reading .tmp/scripts/controllers.js...[32mOK[39m
+Reading .tmp/scripts/services.js...[32mOK[39m
+Writing src...[32mOK[39m
+File "src" created.
+Writing dest...[32mOK[39m
+File "dest" created.
+
+[4mRunning "concat:dist/styles/main.css" (concat) task[24m
+Verifying property [36mconcat.dist/styles/main\.css[39m exists in config...[32mOK[39m
+Files: [36mapp/styles/bootstrap.css[39m, [36mapp/styles/main.css[39m -> [36mdist/styles/main.css[39m
+Options: [36mseparator="\n"[39m, [36mbanner=""[39m, [36mfooter=""[39m, [36mstripBanners=false[39m, [36mprocess=false[39m
+Reading app/styles/bootstrap.css...[32mOK[39m
+Reading app/styles/main.css...[32mOK[39m
+Writing dist/styles/main.css...[32mOK[39m
+File "dist/styles/main.css" created.
+
+[4mRunning "concat:dist/scripts/scripts.js" (concat) task[24m
+Verifying property [36mconcat.dist/scripts/scripts\.js[39m exists in config...[32mOK[39m
+Files: [33m[no src][39m -> [36mdist/scripts/scripts.js[39m
+Options: [36mseparator="\n"[39m, [36mbanner=""[39m, [36mfooter=""[39m, [36mstripBanners=false[39m, [36mprocess=false[39m
+Writing dist/scripts/scripts.js...[32mOK[39m
+File "dist/scripts/scripts.js" created.
+
+[4mRunning "copy" task[24m
+
+[4mRunning "copy:dist" (copy) task[24m
+Verifying property [36mcopy.dist[39m exists in config...[32mOK[39m
+Files: [36mapp/favicon.ico[39m -> [36mdist/favicon.ico[39m
+Files: [36mapp/robots.txt[39m -> [36mdist/robots.txt[39m
+Files: [36mapp/.htaccess[39m -> [36mdist/.htaccess[39m
+Files: [36mapp/components/angular[39m -> [36mdist/components/angular[39m
+Files: [36mapp/components/angular-cookies[39m -> [36mdist/components/angular-cookies[39m
+Files: [36mapp/components/angular-cookies/.bower.json[39m -> [36mdist/components/angular-cookies/.bower.json[39m
+Files: [36mapp/components/angular-cookies/README.md[39m -> [36mdist/components/angular-cookies/README.md[39m
+Files: [36mapp/components/angular-cookies/angular-cookies.js[39m -> [36mdist/components/angular-cookies/angular-cookies.js[39m
+Files: [36mapp/components/angular-cookies/angular-cookies.min.js[39m -> [36mdist/components/angular-cookies/angular-cookies.min.js[39m
+Files: [36mapp/components/angular-cookies/bower.json[39m -> [36mdist/components/angular-cookies/bower.json[39m
+Files: [36mapp/components/angular-mocks[39m -> [36mdist/components/angular-mocks[39m
+Files: [36mapp/components/angular-mocks/.bower.json[39m -> [36mdist/components/angular-mocks/.bower.json[39m
+Files: [36mapp/components/angular-mocks/README.md[39m -> [36mdist/components/angular-mocks/README.md[39m
+Files: [36mapp/components/angular-mocks/angular-mocks.js[39m -> [36mdist/components/angular-mocks/angular-mocks.js[39m
+Files: [36mapp/components/angular-mocks/bower.json[39m -> [36mdist/components/angular-mocks/bower.json[39m
+Files: [36mapp/components/angular-resource[39m -> [36mdist/components/angular-resource[39m
+Files: [36mapp/components/angular-resource/.bower.json[39m -> [36mdist/components/angular-resource/.bower.json[39m
+Files: [36mapp/components/angular-resource/README.md[39m -> [36mdist/components/angular-resource/README.md[39m
+Files: [36mapp/components/angular-resource/angular-resource.js[39m -> [36mdist/components/angular-resource/angular-resource.js[39m
+Files: [36mapp/components/angular-resource/angular-resource.min.js[39m -> [36mdist/components/angular-resource/angular-resource.min.js[39m
+Files: [36mapp/components/angular-resource/bower.json[39m -> [36mdist/components/angular-resource/bower.json[39m
+Files: [36mapp/components/angular-sanitize[39m -> [36mdist/components/angular-sanitize[39m
+Files: [36mapp/components/angular-sanitize/.bower.json[39m -> [36mdist/components/angular-sanitize/.bower.json[39m
+Files: [36mapp/components/angular-sanitize/README.md[39m -> [36mdist/components/angular-sanitize/README.md[39m
+Files: [36mapp/components/angular-sanitize/angular-sanitize.js[39m -> [36mdist/components/angular-sanitize/angular-sanitize.js[39m
+Files: [36mapp/components/angular-sanitize/angular-sanitize.min.js[39m -> [36mdist/components/angular-sanitize/angular-sanitize.min.js[39m
+Files: [36mapp/components/angular-sanitize/bower.json[39m -> [36mdist/components/angular-sanitize/bower.json[39m
+Files: [36mapp/components/angular-scenario[39m -> [36mdist/components/angular-scenario[39m
+Files: [36mapp/components/angular-scenario/.bower.json[39m -> [36mdist/components/angular-scenario/.bower.json[39m
+Files: [36mapp/components/angular-scenario/README.md[39m -> [36mdist/components/angular-scenario/README.md[39m
+Files: [36mapp/components/angular-scenario/angular-scenario.js[39m -> [36mdist/components/angular-scenario/angular-scenario.js[39m
+Files: [36mapp/components/angular-scenario/bower.json[39m -> [36mdist/components/angular-scenario/bower.json[39m
+Files: [36mapp/components/angular-scenario/jstd-scenario-adapter-config.js[39m -> [36mdist/components/angular-scenario/jstd-scenario-adapter-config.js[39m
+Files: [36mapp/components/angular-scenario/jstd-scenario-adapter.js[39m -> [36mdist/components/angular-scenario/jstd-scenario-adapter.js[39m
+Files: [36mapp/components/angular/.bower.json[39m -> [36mdist/components/angular/.bower.json[39m
+Files: [36mapp/components/angular/angular.js[39m -> [36mdist/components/angular/angular.js[39m
+Files: [36mapp/components/angular/angular.min.js[39m -> [36mdist/components/angular/angular.min.js[39m
+Files: [36mapp/components/angular/bower.json[39m -> [36mdist/components/angular/bower.json[39m
+Files: [36mapp/components/es5-shim[39m -> [36mdist/components/es5-shim[39m
+Files: [36mapp/components/es5-shim/.bower.json[39m -> [36mdist/components/es5-shim/.bower.json[39m
+Files: [36mapp/components/es5-shim/.gitignore[39m -> [36mdist/components/es5-shim/.gitignore[39m
+Files: [36mapp/components/es5-shim/CHANGES[39m -> [36mdist/components/es5-shim/CHANGES[39m
+Files: [36mapp/components/es5-shim/CONTRIBUTORS.md[39m -> [36mdist/components/es5-shim/CONTRIBUTORS.md[39m
+Files: [36mapp/components/es5-shim/LICENSE[39m -> [36mdist/components/es5-shim/LICENSE[39m
+Files: [36mapp/components/es5-shim/README.md[39m -> [36mdist/components/es5-shim/README.md[39m
+Files: [36mapp/components/es5-shim/es5-sham.js[39m -> [36mdist/components/es5-shim/es5-sham.js[39m
+Files: [36mapp/components/es5-shim/es5-sham.map[39m -> [36mdist/components/es5-shim/es5-sham.map[39m
+Files: [36mapp/components/es5-shim/es5-sham.min.js[39m -> [36mdist/components/es5-shim/es5-sham.min.js[39m
+Files: [36mapp/components/es5-shim/es5-shim.js[39m -> [36mdist/components/es5-shim/es5-shim.js[39m
+Files: [36mapp/components/es5-shim/es5-shim.map[39m -> [36mdist/components/es5-shim/es5-shim.map[39m
+Files: [36mapp/components/es5-shim/es5-shim.min.js[39m -> [36mdist/components/es5-shim/es5-shim.min.js[39m
+Files: [36mapp/components/es5-shim/package.json[39m -> [36mdist/components/es5-shim/package.json[39m
+Files: [36mapp/components/es5-shim/tests[39m -> [36mdist/components/es5-shim/tests[39m
+Files: [36mapp/components/es5-shim/tests/helpers[39m -> [36mdist/components/es5-shim/tests/helpers[39m
+Files: [36mapp/components/es5-shim/tests/helpers/h-kill.js[39m -> [36mdist/components/es5-shim/tests/helpers/h-kill.js[39m
+Files: [36mapp/components/es5-shim/tests/helpers/h-matchers.js[39m -> [36mdist/components/es5-shim/tests/helpers/h-matchers.js[39m
+Files: [36mapp/components/es5-shim/tests/helpers/h.js[39m -> [36mdist/components/es5-shim/tests/helpers/h.js[39m
+Files: [36mapp/components/es5-shim/tests/index.html[39m -> [36mdist/components/es5-shim/tests/index.html[39m
+Files: [36mapp/components/es5-shim/tests/index.min.html[39m -> [36mdist/components/es5-shim/tests/index.min.html[39m
+Files: [36mapp/components/es5-shim/tests/lib[39m -> [36mdist/components/es5-shim/tests/lib[39m
+Files: [36mapp/components/es5-shim/tests/lib/jasmine-html.js[39m -> [36mdist/components/es5-shim/tests/lib/jasmine-html.js[39m
+Files: [36mapp/components/es5-shim/tests/lib/jasmine.css[39m -> [36mdist/components/es5-shim/tests/lib/jasmine.css[39m
+Files: [36mapp/components/es5-shim/tests/lib/jasmine.js[39m -> [36mdist/components/es5-shim/tests/lib/jasmine.js[39m
+Files: [36mapp/components/es5-shim/tests/lib/jasmine_favicon.png[39m -> [36mdist/components/es5-shim/tests/lib/jasmine_favicon.png[39m
+Files: [36mapp/components/es5-shim/tests/lib/json2.js[39m -> [36mdist/components/es5-shim/tests/lib/json2.js[39m
+Files: [36mapp/components/es5-shim/tests/spec[39m -> [36mdist/components/es5-shim/tests/spec[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-array.js[39m -> [36mdist/components/es5-shim/tests/spec/s-array.js[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-date.js[39m -> [36mdist/components/es5-shim/tests/spec/s-date.js[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-function.js[39m -> [36mdist/components/es5-shim/tests/spec/s-function.js[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-number.js[39m -> [36mdist/components/es5-shim/tests/spec/s-number.js[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-object.js[39m -> [36mdist/components/es5-shim/tests/spec/s-object.js[39m
+Files: [36mapp/components/es5-shim/tests/spec/s-string.js[39m -> [36mdist/components/es5-shim/tests/spec/s-string.js[39m
+Files: [36mapp/components/json3[39m -> [36mdist/components/json3[39m
+Files: [36mapp/components/json3/.bower.json[39m -> [36mdist/components/json3/.bower.json[39m
+Files: [36mapp/components/json3/LICENSE[39m -> [36mdist/components/json3/LICENSE[39m
+Files: [36mapp/components/json3/README.md[39m -> [36mdist/components/json3/README.md[39m
+Files: [36mapp/components/json3/bower.json[39m -> [36mdist/components/json3/bower.json[39m
+Files: [36mapp/components/json3/lib[39m -> [36mdist/components/json3/lib[39m
+Files: [36mapp/components/json3/lib/json3.js[39m -> [36mdist/components/json3/lib/json3.js[39m
+Files: [36mapp/components/json3/lib/json3.min.js[39m -> [36mdist/components/json3/lib/json3.min.js[39m
+Options: [36mprocessContent=false[39m, [36mprocessContentExclude=[][39m
+Options: [36mprocessContent=false[39m, [36mprocessContentExclude=[][39m
+Copying [36mapp/favicon.ico[39m -> [36mdist/favicon.ico[39m
+Reading app/favicon.ico...[32mOK[39m
+Writing dist/favicon.ico...[32mOK[39m
+Copying [36mapp/robots.txt[39m -> [36mdist/robots.txt[39m
+Reading app/robots.txt...[32mOK[39m
+Writing dist/robots.txt...[32mOK[39m
+Copying [36mapp/.htaccess[39m -> [36mdist/.htaccess[39m
+Reading app/.htaccess...[32mOK[39m
+Writing dist/.htaccess...[32mOK[39m
+Creating [36mdist/components/angular[39m
+Creating [36mdist/components/angular-cookies[39m
+Copying [36mapp/components/angular-cookies/.bower.json[39m -> [36mdist/components/angular-cookies/.bower.json[39m
+Reading app/components/angular-cookies/.bower.json...[32mOK[39m
+Writing dist/components/angular-cookies/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular-cookies/README.md[39m -> [36mdist/components/angular-cookies/README.md[39m
+Reading app/components/angular-cookies/README.md...[32mOK[39m
+Writing dist/components/angular-cookies/README.md...[32mOK[39m
+Copying [36mapp/components/angular-cookies/angular-cookies.js[39m -> [36mdist/components/angular-cookies/angular-cookies.js[39m
+Reading app/components/angular-cookies/angular-cookies.js...[32mOK[39m
+Writing dist/components/angular-cookies/angular-cookies.js...[32mOK[39m
+Copying [36mapp/components/angular-cookies/angular-cookies.min.js[39m -> [36mdist/components/angular-cookies/angular-cookies.min.js[39m
+Reading app/components/angular-cookies/angular-cookies.min.js...[32mOK[39m
+Writing dist/components/angular-cookies/angular-cookies.min.js...[32mOK[39m
+Copying [36mapp/components/angular-cookies/bower.json[39m -> [36mdist/components/angular-cookies/bower.json[39m
+Reading app/components/angular-cookies/bower.json...[32mOK[39m
+Writing dist/components/angular-cookies/bower.json...[32mOK[39m
+Creating [36mdist/components/angular-mocks[39m
+Copying [36mapp/components/angular-mocks/.bower.json[39m -> [36mdist/components/angular-mocks/.bower.json[39m
+Reading app/components/angular-mocks/.bower.json...[32mOK[39m
+Writing dist/components/angular-mocks/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular-mocks/README.md[39m -> [36mdist/components/angular-mocks/README.md[39m
+Reading app/components/angular-mocks/README.md...[32mOK[39m
+Writing dist/components/angular-mocks/README.md...[32mOK[39m
+Copying [36mapp/components/angular-mocks/angular-mocks.js[39m -> [36mdist/components/angular-mocks/angular-mocks.js[39m
+Reading app/components/angular-mocks/angular-mocks.js...[32mOK[39m
+Writing dist/components/angular-mocks/angular-mocks.js...[32mOK[39m
+Copying [36mapp/components/angular-mocks/bower.json[39m -> [36mdist/components/angular-mocks/bower.json[39m
+Reading app/components/angular-mocks/bower.json...[32mOK[39m
+Writing dist/components/angular-mocks/bower.json...[32mOK[39m
+Creating [36mdist/components/angular-resource[39m
+Copying [36mapp/components/angular-resource/.bower.json[39m -> [36mdist/components/angular-resource/.bower.json[39m
+Reading app/components/angular-resource/.bower.json...[32mOK[39m
+Writing dist/components/angular-resource/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular-resource/README.md[39m -> [36mdist/components/angular-resource/README.md[39m
+Reading app/components/angular-resource/README.md...[32mOK[39m
+Writing dist/components/angular-resource/README.md...[32mOK[39m
+Copying [36mapp/components/angular-resource/angular-resource.js[39m -> [36mdist/components/angular-resource/angular-resource.js[39m
+Reading app/components/angular-resource/angular-resource.js...[32mOK[39m
+Writing dist/components/angular-resource/angular-resource.js...[32mOK[39m
+Copying [36mapp/components/angular-resource/angular-resource.min.js[39m -> [36mdist/components/angular-resource/angular-resource.min.js[39m
+Reading app/components/angular-resource/angular-resource.min.js...[32mOK[39m
+Writing dist/components/angular-resource/angular-resource.min.js...[32mOK[39m
+Copying [36mapp/components/angular-resource/bower.json[39m -> [36mdist/components/angular-resource/bower.json[39m
+Reading app/components/angular-resource/bower.json...[32mOK[39m
+Writing dist/components/angular-resource/bower.json...[32mOK[39m
+Creating [36mdist/components/angular-sanitize[39m
+Copying [36mapp/components/angular-sanitize/.bower.json[39m -> [36mdist/components/angular-sanitize/.bower.json[39m
+Reading app/components/angular-sanitize/.bower.json...[32mOK[39m
+Writing dist/components/angular-sanitize/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular-sanitize/README.md[39m -> [36mdist/components/angular-sanitize/README.md[39m
+Reading app/components/angular-sanitize/README.md...[32mOK[39m
+Writing dist/components/angular-sanitize/README.md...[32mOK[39m
+Copying [36mapp/components/angular-sanitize/angular-sanitize.js[39m -> [36mdist/components/angular-sanitize/angular-sanitize.js[39m
+Reading app/components/angular-sanitize/angular-sanitize.js...[32mOK[39m
+Writing dist/components/angular-sanitize/angular-sanitize.js...[32mOK[39m
+Copying [36mapp/components/angular-sanitize/angular-sanitize.min.js[39m -> [36mdist/components/angular-sanitize/angular-sanitize.min.js[39m
+Reading app/components/angular-sanitize/angular-sanitize.min.js...[32mOK[39m
+Writing dist/components/angular-sanitize/angular-sanitize.min.js...[32mOK[39m
+Copying [36mapp/components/angular-sanitize/bower.json[39m -> [36mdist/components/angular-sanitize/bower.json[39m
+Reading app/components/angular-sanitize/bower.json...[32mOK[39m
+Writing dist/components/angular-sanitize/bower.json...[32mOK[39m
+Creating [36mdist/components/angular-scenario[39m
+Copying [36mapp/components/angular-scenario/.bower.json[39m -> [36mdist/components/angular-scenario/.bower.json[39m
+Reading app/components/angular-scenario/.bower.json...[32mOK[39m
+Writing dist/components/angular-scenario/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular-scenario/README.md[39m -> [36mdist/components/angular-scenario/README.md[39m
+Reading app/components/angular-scenario/README.md...[32mOK[39m
+Writing dist/components/angular-scenario/README.md...[32mOK[39m
+Copying [36mapp/components/angular-scenario/angular-scenario.js[39m -> [36mdist/components/angular-scenario/angular-scenario.js[39m
+Reading app/components/angular-scenario/angular-scenario.js...[32mOK[39m
+Writing dist/components/angular-scenario/angular-scenario.js...[32mOK[39m
+Copying [36mapp/components/angular-scenario/bower.json[39m -> [36mdist/components/angular-scenario/bower.json[39m
+Reading app/components/angular-scenario/bower.json...[32mOK[39m
+Writing dist/components/angular-scenario/bower.json...[32mOK[39m
+Copying [36mapp/components/angular-scenario/jstd-scenario-adapter-config.js[39m -> [36mdist/components/angular-scenario/jstd-scenario-adapter-config.js[39m
+Reading app/components/angular-scenario/jstd-scenario-adapter-config.js...[32mOK[39m
+Writing dist/components/angular-scenario/jstd-scenario-adapter-config.js...[32mOK[39m
+Copying [36mapp/components/angular-scenario/jstd-scenario-adapter.js[39m -> [36mdist/components/angular-scenario/jstd-scenario-adapter.js[39m
+Reading app/components/angular-scenario/jstd-scenario-adapter.js...[32mOK[39m
+Writing dist/components/angular-scenario/jstd-scenario-adapter.js...[32mOK[39m
+Copying [36mapp/components/angular/.bower.json[39m -> [36mdist/components/angular/.bower.json[39m
+Reading app/components/angular/.bower.json...[32mOK[39m
+Writing dist/components/angular/.bower.json...[32mOK[39m
+Copying [36mapp/components/angular/angular.js[39m -> [36mdist/components/angular/angular.js[39m
+Reading app/components/angular/angular.js...[32mOK[39m
+Writing dist/components/angular/angular.js...[32mOK[39m
+Copying [36mapp/components/angular/angular.min.js[39m -> [36mdist/components/angular/angular.min.js[39m
+Reading app/components/angular/angular.min.js...[32mOK[39m
+Writing dist/components/angular/angular.min.js...[32mOK[39m
+Copying [36mapp/components/angular/bower.json[39m -> [36mdist/components/angular/bower.json[39m
+Reading app/components/angular/bower.json...[32mOK[39m
+Writing dist/components/angular/bower.json...[32mOK[39m
+Creating [36mdist/components/es5-shim[39m
+Copying [36mapp/components/es5-shim/.bower.json[39m -> [36mdist/components/es5-shim/.bower.json[39m
+Reading app/components/es5-shim/.bower.json...[32mOK[39m
+Writing dist/components/es5-shim/.bower.json...[32mOK[39m
+Copying [36mapp/components/es5-shim/.gitignore[39m -> [36mdist/components/es5-shim/.gitignore[39m
+Reading app/components/es5-shim/.gitignore...[32mOK[39m
+Writing dist/components/es5-shim/.gitignore...[32mOK[39m
+Copying [36mapp/components/es5-shim/CHANGES[39m -> [36mdist/components/es5-shim/CHANGES[39m
+Reading app/components/es5-shim/CHANGES...[32mOK[39m
+Writing dist/components/es5-shim/CHANGES...[32mOK[39m
+Copying [36mapp/components/es5-shim/CONTRIBUTORS.md[39m -> [36mdist/components/es5-shim/CONTRIBUTORS.md[39m
+Reading app/components/es5-shim/CONTRIBUTORS.md...[32mOK[39m
+Writing dist/components/es5-shim/CONTRIBUTORS.md...[32mOK[39m
+Copying [36mapp/components/es5-shim/LICENSE[39m -> [36mdist/components/es5-shim/LICENSE[39m
+Reading app/components/es5-shim/LICENSE...[32mOK[39m
+Writing dist/components/es5-shim/LICENSE...[32mOK[39m
+Copying [36mapp/components/es5-shim/README.md[39m -> [36mdist/components/es5-shim/README.md[39m
+Reading app/components/es5-shim/README.md...[32mOK[39m
+Writing dist/components/es5-shim/README.md...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-sham.js[39m -> [36mdist/components/es5-shim/es5-sham.js[39m
+Reading app/components/es5-shim/es5-sham.js...[32mOK[39m
+Writing dist/components/es5-shim/es5-sham.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-sham.map[39m -> [36mdist/components/es5-shim/es5-sham.map[39m
+Reading app/components/es5-shim/es5-sham.map...[32mOK[39m
+Writing dist/components/es5-shim/es5-sham.map...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-sham.min.js[39m -> [36mdist/components/es5-shim/es5-sham.min.js[39m
+Reading app/components/es5-shim/es5-sham.min.js...[32mOK[39m
+Writing dist/components/es5-shim/es5-sham.min.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-shim.js[39m -> [36mdist/components/es5-shim/es5-shim.js[39m
+Reading app/components/es5-shim/es5-shim.js...[32mOK[39m
+Writing dist/components/es5-shim/es5-shim.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-shim.map[39m -> [36mdist/components/es5-shim/es5-shim.map[39m
+Reading app/components/es5-shim/es5-shim.map...[32mOK[39m
+Writing dist/components/es5-shim/es5-shim.map...[32mOK[39m
+Copying [36mapp/components/es5-shim/es5-shim.min.js[39m -> [36mdist/components/es5-shim/es5-shim.min.js[39m
+Reading app/components/es5-shim/es5-shim.min.js...[32mOK[39m
+Writing dist/components/es5-shim/es5-shim.min.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/package.json[39m -> [36mdist/components/es5-shim/package.json[39m
+Reading app/components/es5-shim/package.json...[32mOK[39m
+Writing dist/components/es5-shim/package.json...[32mOK[39m
+Creating [36mdist/components/es5-shim/tests[39m
+Creating [36mdist/components/es5-shim/tests/helpers[39m
+Copying [36mapp/components/es5-shim/tests/helpers/h-kill.js[39m -> [36mdist/components/es5-shim/tests/helpers/h-kill.js[39m
+Reading app/components/es5-shim/tests/helpers/h-kill.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/helpers/h-kill.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/helpers/h-matchers.js[39m -> [36mdist/components/es5-shim/tests/helpers/h-matchers.js[39m
+Reading app/components/es5-shim/tests/helpers/h-matchers.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/helpers/h-matchers.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/helpers/h.js[39m -> [36mdist/components/es5-shim/tests/helpers/h.js[39m
+Reading app/components/es5-shim/tests/helpers/h.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/helpers/h.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/index.html[39m -> [36mdist/components/es5-shim/tests/index.html[39m
+Reading app/components/es5-shim/tests/index.html...[32mOK[39m
+Writing dist/components/es5-shim/tests/index.html...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/index.min.html[39m -> [36mdist/components/es5-shim/tests/index.min.html[39m
+Reading app/components/es5-shim/tests/index.min.html...[32mOK[39m
+Writing dist/components/es5-shim/tests/index.min.html...[32mOK[39m
+Creating [36mdist/components/es5-shim/tests/lib[39m
+Copying [36mapp/components/es5-shim/tests/lib/jasmine-html.js[39m -> [36mdist/components/es5-shim/tests/lib/jasmine-html.js[39m
+Reading app/components/es5-shim/tests/lib/jasmine-html.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/lib/jasmine-html.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/lib/jasmine.css[39m -> [36mdist/components/es5-shim/tests/lib/jasmine.css[39m
+Reading app/components/es5-shim/tests/lib/jasmine.css...[32mOK[39m
+Writing dist/components/es5-shim/tests/lib/jasmine.css...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/lib/jasmine.js[39m -> [36mdist/components/es5-shim/tests/lib/jasmine.js[39m
+Reading app/components/es5-shim/tests/lib/jasmine.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/lib/jasmine.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/lib/jasmine_favicon.png[39m -> [36mdist/components/es5-shim/tests/lib/jasmine_favicon.png[39m
+Reading app/components/es5-shim/tests/lib/jasmine_favicon.png...[32mOK[39m
+Writing dist/components/es5-shim/tests/lib/jasmine_favicon.png...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/lib/json2.js[39m -> [36mdist/components/es5-shim/tests/lib/json2.js[39m
+Reading app/components/es5-shim/tests/lib/json2.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/lib/json2.js...[32mOK[39m
+Creating [36mdist/components/es5-shim/tests/spec[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-array.js[39m -> [36mdist/components/es5-shim/tests/spec/s-array.js[39m
+Reading app/components/es5-shim/tests/spec/s-array.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-array.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-date.js[39m -> [36mdist/components/es5-shim/tests/spec/s-date.js[39m
+Reading app/components/es5-shim/tests/spec/s-date.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-date.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-function.js[39m -> [36mdist/components/es5-shim/tests/spec/s-function.js[39m
+Reading app/components/es5-shim/tests/spec/s-function.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-function.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-number.js[39m -> [36mdist/components/es5-shim/tests/spec/s-number.js[39m
+Reading app/components/es5-shim/tests/spec/s-number.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-number.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-object.js[39m -> [36mdist/components/es5-shim/tests/spec/s-object.js[39m
+Reading app/components/es5-shim/tests/spec/s-object.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-object.js...[32mOK[39m
+Copying [36mapp/components/es5-shim/tests/spec/s-string.js[39m -> [36mdist/components/es5-shim/tests/spec/s-string.js[39m
+Reading app/components/es5-shim/tests/spec/s-string.js...[32mOK[39m
+Writing dist/components/es5-shim/tests/spec/s-string.js...[32mOK[39m
+Creating [36mdist/components/json3[39m
+Copying [36mapp/components/json3/.bower.json[39m -> [36mdist/components/json3/.bower.json[39m
+Reading app/components/json3/.bower.json...[32mOK[39m
+Writing dist/components/json3/.bower.json...[32mOK[39m
+Copying [36mapp/components/json3/LICENSE[39m -> [36mdist/components/json3/LICENSE[39m
+Reading app/components/json3/LICENSE...[32mOK[39m
+Writing dist/components/json3/LICENSE...[32mOK[39m
+Copying [36mapp/components/json3/README.md[39m -> [36mdist/components/json3/README.md[39m
+Reading app/components/json3/README.md...[32mOK[39m
+Writing dist/components/json3/README.md...[32mOK[39m
+Copying [36mapp/components/json3/bower.json[39m -> [36mdist/components/json3/bower.json[39m
+Reading app/components/json3/bower.json...[32mOK[39m
+Writing dist/components/json3/bower.json...[32mOK[39m
+Creating [36mdist/components/json3/lib[39m
+Copying [36mapp/components/json3/lib/json3.js[39m -> [36mdist/components/json3/lib/json3.js[39m
+Reading app/components/json3/lib/json3.js...[32mOK[39m
+Writing dist/components/json3/lib/json3.js...[32mOK[39m
+Copying [36mapp/components/json3/lib/json3.min.js[39m -> [36mdist/components/json3/lib/json3.min.js[39m
+Reading app/components/json3/lib/json3.min.js...[32mOK[39m
+Writing dist/components/json3/lib/json3.min.js...[32mOK[39m
+Created [36m13[39m directories, copied [36m67[39m files
+
+[4mRunning "cdnify" task[24m
+
+[4mRunning "cdnify:dist" (cdnify) task[24m
+Verifying property [36mcdnify.dist[39m exists in config...[32mOK[39m
+File: [33m[no files][39m
+Reading bower.json...[32mOK[39m
+Parsing bower.json...[32mOK[39m
+Going through [36mdist/404.html[39m, [36mdist/index.html[39m to update script refs
+Reading dist/404.html...[32mOK[39m
+Reading dist/index.html...[32mOK[39m
+Writing dist/404.html...[32mOK[39m
+Writing dist/index.html...[32mOK[39m
+
+[4mRunning "ngmin" task[24m
+
+[4mRunning "ngmin:dist" (ngmin) task[24m
+Verifying property [36mngmin.dist[39m exists in config...[32mOK[39m
+Files: [36mdist/scripts/scripts.js[39m -> [36mdist/scripts/scripts.js[39m
+ngminifying [36mdist/scripts/scripts.js[39m
+Reading dist/scripts/scripts.js...[32mOK[39m
+Writing dist/scripts/scripts.js...[32mOK[39m
+
+[4mRunning "uglify" task[24m
+
+[4mRunning "uglify:dist" (uglify) task[24m
+Verifying property [36muglify.dist[39m exists in config...[32mOK[39m
+Files: [36mdist/scripts/scripts.js[39m -> [36mdist/scripts/scripts.js[39m
+Options: [36mbanner=""[39m, [36mfooter=""[39m, [36mcompress={"warnings":false}[39m, [36mmangle={}[39m, [36mbeautify=false[39m, [36mreport=false[39m
+Minifying with UglifyJS...Reading dist/scripts/scripts.js...[32mOK[39m
+[32mOK[39m
+Writing dist/scripts/scripts.js...[32mOK[39m
+File "dist/scripts/scripts.js" created.
+
+[4mRunning "uglify:dist/scripts/scripts.js" (uglify) task[24m
+Verifying property [36muglify.dist/scripts/scripts\.js[39m exists in config...[32mOK[39m
+Files: [36mdist/scripts/scripts.js[39m -> [36mdist/scripts/scripts.js[39m
+Options: [36mbanner=""[39m, [36mfooter=""[39m, [36mcompress={"warnings":false}[39m, [36mmangle={}[39m, [36mbeautify=false[39m, [36mreport=false[39m
+Minifying with UglifyJS...Reading dist/scripts/scripts.js...[32mOK[39m
+[32mOK[39m
+Writing dist/scripts/scripts.js...[32mOK[39m
+File "dist/scripts/scripts.js" created.
+
+[4mRunning "rev" task[24m
+
+[4mRunning "rev:dist" (rev) task[24m
+Verifying property [36mrev.dist[39m exists in config...[32mOK[39m
+Files: [36mdist/scripts/scripts.js[39m, [36mdist/styles/main.css[39m, [36mdist/images/chart_bar.png[39m, [36mdist/images/chart_donut_with_image.png[39m, [36mdist/images/chart_pie.png[39m, [36mdist/images/map_msoa.png[39m -> [36msrc[39m
+Options: [36malgorithm="md5"[39m, [36mlength=8[39m
+Hashing dist/scripts/scripts.js...Reading dist/scripts/scripts.js...[32mOK[39m
+[32mOK[39m
+[32m>> [39md41d8cd98f00b204e9800998ecf8427e
+dist/scripts/scripts.js [32m>> [39md41d8cd9.scripts.js
+Hashing dist/styles/main.css...Reading dist/styles/main.css...[32mOK[39m
+[32mOK[39m
+[32m>> [39mc1b22bf568648ff3089197c75c8d41b0
+dist/styles/main.css [32m>> [39mc1b22bf5.main.css
+Hashing dist/images/chart_bar.png...Reading dist/images/chart_bar.png...[32mOK[39m
+[32mOK[39m
+[32m>> [39mb92aab722c9879785609a760f1873525
+dist/images/chart_bar.png [32m>> [39mb92aab72.chart_bar.png
+Hashing dist/images/chart_donut_with_image.png...Reading dist/images/chart_donut_with_image.png...[32mOK[39m
+[32mOK[39m
+[32m>> [39m91eb08840e05f18e7a758d46c7feb333
+dist/images/chart_donut_with_image.png [32m>> [39m91eb0884.chart_donut_with_image.png
+Hashing dist/images/chart_pie.png...Reading dist/images/chart_pie.png...[32mOK[39m
+[32mOK[39m
+[32m>> [39m3b86c46d9a92f700ac9cbb38b59d7eb2
+dist/images/chart_pie.png [32m>> [39m3b86c46d.chart_pie.png
+Hashing dist/images/map_msoa.png...Reading dist/images/map_msoa.png...[32mOK[39m
+[32mOK[39m
+[32m>> [39m9d4903d0ad5ecb22f9e05a255ab80c3b
+dist/images/map_msoa.png [32m>> [39m9d4903d0.map_msoa.png
+
+[4mRunning "usemin" task[24m
+
+[4mRunning "usemin:html" (usemin) task[24m
+Verifying property [36musemin.html[39m exists in config...[32mOK[39m
+Files: [36mdist/404.html[39m, [36mdist/index.html[39m -> [36mhtml[39m
+Options: [36mtype="html"[39m, [36mdirs=["dist"][39m
+Reading dist/404.html...[32mOK[39m
+Reading dist/index.html...[32mOK[39m
+
+[1mProcessing as HTML - dist/404.html[22m
+Update the HTML to reference our concat/min/revved script files
+Update the HTML with the new css filenames
+Update the HTML with the new img filenames
+Update the HTML with data-main tags
+Update the HTML with the data tags
+Update the HTML with background imgs, case there is some inline style
+Update the HTML with anchors images
+Update the HTML with reference in input
+Writing dist/404.html...[32mOK[39m
+
+[1mProcessing as HTML - dist/index.html[22m
+Update the HTML to reference our concat/min/revved script files
+<script src="scripts/scripts.js" changed to <script src="scripts/d41d8cd9.scripts.js"
+Update the HTML with the new css filenames
+<link rel="stylesheet" href="styles/main.css" changed to <link rel="stylesheet" href="styles/c1b22bf5.main.css"
+Update the HTML with the new img filenames
+Update the HTML with data-main tags
+Update the HTML with the data tags
+Update the HTML with background imgs, case there is some inline style
+Update the HTML with anchors images
+Update the HTML with reference in input
+Writing dist/index.html...[32mOK[39m
+
+[4mRunning "usemin:css" (usemin) task[24m
+Verifying property [36musemin.css[39m exists in config...[32mOK[39m
+Files: [36mdist/styles/c1b22bf5.main.css[39m -> [36mcss[39m
+Options: [36mtype="css"[39m, [36mdirs=["dist"][39m
+Reading dist/styles/c1b22bf5.main.css...[32mOK[39m
+
+[1mProcessing as CSS - dist/styles/c1b22bf5.main.css[22m
+Update the CSS with new img filenames
+Writing dist/styles/c1b22bf5.main.css...[32mOK[39m
+
+[32mDone, without errors.[39m

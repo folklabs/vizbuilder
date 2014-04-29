@@ -1,0 +1,21 @@
+{
+  "rendererName": "dataunity.barchart",
+  "thumbnail": "http:",
+  "datasets": [
+    {
+    "name": "dataset1",
+      "fields": [
+        {
+          "vizField": "xAxis",
+          "dataType": ["xsd:string"],
+            "required": true
+        },
+        {
+          "vizField": "yAxis",
+          "dataType": ["xsd:decimal"],
+            "required": true
+        }
+      ]
+    }
+  ]
+}

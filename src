@@ -1,0 +1,115 @@
+(function() {
+  angular.module("vizBuilder", []).config(function($routeProvider) {
+    return $routeProvider.when("/", {
+      templateUrl: "views/main.html",
+      controller: "MainCtrl"
+    }).when("/datatables", {
+      templateUrl: "views/datatables.html",
+      controller: "DatatableCtrl"
+    }).when("/explorer", {
+      templateUrl: "views/explorer.html",
+      controller: "ExplorerController"
+    }).otherwise({
+      redirectTo: "/"
+    });
+  });
+
+}).call(this);
+
+(function() {
+  var vizBuilder;
+
+  vizBuilder = angular.module("vizBuilder");
+
+  vizBuilder.config([
+    '$httpProvider', function($httpProvider) {
+      $httpProvider.defaults.useXDomain = true;
+      return delete $httpProvider.defaults.headers.common['X-Requested-With'];
+    }
+  ]);
+
+  vizBuilder.controller("DatatableCtrl", function($scope, datatableService) {
+    var promise;
+    promise = datatableService.fetchTables();
+    return promise.then(function(data) {
+      $scope.datatables = data['dtbl:dataTable'];
+      return console.log(data);
+    });
+  });
+
+  vizBuilder.controller("ExplorerController", function($scope, RendererService) {
+    $scope.renderers = RendererService.getRenderers();
+    return console.log($scope.renderers);
+  });
+
+}).call(this);
+
+(function() {
+  var DU_API, renderers, vizBuilder;
+
+  DU_API = 'http://localhost:6543/api/beta/';
+
+  vizBuilder = angular.module('vizBuilder');
+
+  vizBuilder.service('datatableService', function($q, $timeout, $http) {
+    return this.fetchTables = function() {
+      var deferred;
+      deferred = $q.defer();
+      $timeout(function() {
+        return $http.get(DU_API + 'datatablecatalogs/public').success(function(data) {
+          return deferred.resolve(data);
+        });
+      });
+      return deferred.promise;
+    };
+  });
+
+  renderers = [
+    {
+      rendererName: 'dataunity.barchart',
+      thumbnail: '/images/chart_bar.png',
+      datasets: [
+        {
+          name: 'dataset1',
+          fields: [
+            {
+              vizField: 'xAxis',
+              dataType: ['string'],
+              required: true
+            }, {
+              vizField: 'yAxis',
+              dataType: ['decimal'],
+              required: true
+            }
+          ]
+        }
+      ]
+    }, {
+      rendererName: 'dataunity.piechart',
+      thumbnail: '/images/chart_pie.png',
+      datasets: [
+        {
+          name: 'dataset1',
+          fields: [
+            {
+              vizField: 'xAxis',
+              dataType: ['string'],
+              required: true
+            }, {
+              vizField: 'yAxis',
+              dataType: ['decimal'],
+              required: true
+            }
+          ]
+        }
+      ]
+    }
+  ];
+
+  vizBuilder.service('RendererService', function() {
+    return this.getRenderers = function() {
+      return renderers;
+    };
+  });
+
+}).call(this);

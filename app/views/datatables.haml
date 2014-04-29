@@ -1,0 +1,24 @@
+.container
+  %a{'href' => '/#/explorer'}
+    .btn.btn-primary.pull-right Explore data
+  %h2 Datasets
+
+  .content
+    %p Browse datasets:
+    %ul{"ng-repeat"=>"dataset in datatables"}
+      %li
+        .panel.panel-default.dataset
+          .panel-heading
+            %h4.title {{dataset['rdfs:label']}}
+            .btn.btn-primary{'ng-click' => 'dataset.selected = !dataset.selected'} Add to selected
+          .panel-body
+            / {{ dataset.selected }}
+            Categories:
+            / .label.label-default {{dataset['rdfs:label']}}
+
+  .sidebar-right
+    .selected-data
+      %h4 Selected datasets
+      %ul{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
+        %li
+          {{dataset['rdfs:label']}}
