@@ -1,0 +1,18 @@
+%h2 Choose visualisation
+
+%wizard-progress-bar{'active-step'=>'Visualization type'}
+
+%a{'href' => '#/'}
+  .btn.btn-primary Back
+
+.explorer
+  /{'ng-controller'=>'VisualizationTypeController'}
+  %ul{'ng-repeat' => 'renderer in renderers'}
+    %li
+      %h4 {{ renderer.rendererName }}
+      / TODO: save viz type
+      %a{'href' => '#/select-columns', 'ng-click'=>'saveRenderer(renderer)'}
+        %img{'src' => '{{ renderer.thumbnail }}'}
+
+  .vb-view
+

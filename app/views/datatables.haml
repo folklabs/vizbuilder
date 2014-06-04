@@ -1,24 +1,24 @@
-.container
-  %a{'href' => '/#/explorer'}
-    .btn.btn-primary.pull-right Explore data
-  %h2 Datasets
+%h2 Choose datasets
 
-  .content
-    %p Browse datasets:
-    %ul{"ng-repeat"=>"dataset in datatables"}
+%wizard-progress-bar{'active-step'=>'Datasets'}
+
+.buttons
+  %a{'href' => '#/select-type'}
+    .btn.btn-primary.pull-right Select visualization type
+
+
+.content
+  / %p Browse datasets:
+  .list-group
+    .list-group-item{"ng-repeat"=>"dataset in datatables | orderBy:'label'"}
+      %h4.title {{dataset.label}}
+      .btn.btn-success{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
+      %p Categories:
+      / .source Source {{dataset.dataSource.url}}
+
+.sidebar-right
+  .selected-data
+    %h4 Selected datasets
+    %ul{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
       %li
-        .panel.panel-default.dataset
-          .panel-heading
-            %h4.title {{dataset['rdfs:label']}}
-            .btn.btn-primary{'ng-click' => 'dataset.selected = !dataset.selected'} Add to selected
-          .panel-body
-            / {{ dataset.selected }}
-            Categories:
-            / .label.label-default {{dataset['rdfs:label']}}
-
-  .sidebar-right
-    .selected-data
-      %h4 Selected datasets
-      %ul{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
-        %li
-          {{dataset['rdfs:label']}}
+        {{dataset.label}}
