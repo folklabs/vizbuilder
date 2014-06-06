@@ -1,5 +1,6 @@
 
 DATA_UNITY_URL = 'http://0.0.0.0:6543/api/beta'
+DATA_UNITY_URL = 'http://dataunity.apiary-mock.com/api/beta'
 
 vizBuilder = angular.module("vizBuilder", ['restangular'])
 

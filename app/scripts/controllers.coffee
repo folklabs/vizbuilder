@@ -36,7 +36,7 @@ vizBuilder.controller "DatatableController", ($scope, datatableService) ->
 
   promise = datatableService.fetchTables()
   promise.then (data) ->
-    $scope.datatables = data #['dtbl:dataTable']
+    $scope.datatables = data
     console.log data
 
     # TODO: temp hack!!
@@ -94,6 +94,7 @@ vizBuilder.directive 'visualization', ->
     jsonSettings =
       "name": "default"
       "contentType": "text/csv"
+      "visualizationType": scope.$parent.selectedRenderer.type
       "fields": []
 
     console.log scope
@@ -111,7 +112,6 @@ vizBuilder.directive 'visualization', ->
     console.log jsonSettings
     renderOpt =
       rendererName: scope.$parent.selectedRenderer['rendererName']
-      # selector: "#vizshare"
       data: [jsonSettings]
       vizOptions: scope.$parent.selectedRenderer.vizOptions
     scope.$parent.vizshareDef = JSON.stringify([jsonSettings]);

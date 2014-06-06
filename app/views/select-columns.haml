@@ -16,18 +16,3 @@
     .list-group
     %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}
       {{ col.fieldRef }}
-
-  / %p
-  /   %b X axis
-  / .list-group
-  /   %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset['structure']['qb:component']", 'ng-click'=>'selectX(col)', 'ng-class'=>'{active: col.selectedX}'}
-  /     {{ col['dtbl:fieldRef'] }}
-
-
-  / %p
-  /   %b Y axis
-  / .list-group
-  /   %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset['structure']['qb:component']", 'ng-click'=>'selectY(col)', 'ng-class'=>'{active: col.selectedY}'}
-  /     {{ col['dtbl:fieldRef'] }}
-
-

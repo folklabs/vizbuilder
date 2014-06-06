@@ -73,6 +73,7 @@ vizBuilder.factory 'datatableService', ($q, $timeout, $http, Restangular) ->
 renderers = [
   {
     rendererName: 'vizshare.barchart'
+    type: 'barchart'
     thumbnail: '/images/chart_bar.png'
     datasets: [
       name: 'dataset1'
@@ -93,6 +94,7 @@ renderers = [
   }
   {
     rendererName: 'vizshare.piechart'
+    type: 'piechart'
     thumbnail: '/images/chart_pie.png'
     datasets: [
       name: 'dataset1'
@@ -113,6 +115,7 @@ renderers = [
   }
   {
     rendererName: 'vizshare.geoleaflet'
+    type: 'map'
     thumbnail: '/images/map.png'
     datasets: [
       name: 'dataset1'
