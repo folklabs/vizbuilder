@@ -2,17 +2,17 @@
 
 %wizard-progress-bar{'active-step'=>'Visualization type'}
 
-%a{'href' => '#/'}
-  .btn.btn-primary Back
+.buttons
+  %a{'href' => '#/select-columns'}
+    .btn.btn-primary.pull-right Choose columns
+  %a{'href' => '#/'}
+    .btn.btn-primary Back
 
 .explorer
-  /{'ng-controller'=>'VisualizationTypeController'}
-  %ul{'ng-repeat' => 'renderer in renderers'}
-    %li
+  %ul
+    %li.renderer{'ng-repeat' => 'renderer in renderers'}
       %h4 {{ renderer.rendererName }}
-      / TODO: save viz type
-      %a{'href' => '#/select-columns', 'ng-click'=>'saveRenderer(renderer)'}
-        %img{'src' => '{{ renderer.thumbnail }}'}
+      %img{'src' => '{{ renderer.thumbnail }}', 'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
 
   .vb-view
 

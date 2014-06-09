@@ -20,7 +20,7 @@ vizBuilder.directive 'wizardProgressBar', ->
     scope.steps = STEPS
     console.log 'scope'
     console.log scope
-  templateUrl: 'views/wizard-progress-bar.html'
+  templateUrl: '/views/wizard-progress-bar.html'
 
 
 vizBuilder.controller "VizBuilderController", ($scope) ->
@@ -47,14 +47,11 @@ vizBuilder.controller "VisualizationTypeController", ($scope, RendererService, $
   $scope.renderers = RendererService.getRenderers()
   # console.log $scope.renderers
 
-  $scope.saveRenderer = (renderer) ->
-    console.log 'renderer'
-    console.log renderer
-    # console.log href
+  $scope.selectRenderer = (renderer) ->
+    for r in $scope.renderers
+      r.selected = false
     $scope.$parent.selectedRenderer = renderer
-    # $http.get(href).success((data) ->
-    #   console.log href
-    # )
+    renderer.selected = true
 
 
 vizBuilder.controller "ColumnsController", ($scope, datatableService, RendererService) ->
