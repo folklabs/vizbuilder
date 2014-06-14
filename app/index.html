@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="styles/datatable.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="vizBuilder">
+  <body>
     <!--[if lt IE 7]>
       <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
     <![endif]-->
@@ -30,7 +30,12 @@
     <!-- Add your site or application content here -->
     <div class="container page">
       <h1>Viz Builder</h1>
-      <div class="container" ng-controller="VizBuilderController" ng-view></div>
+      <form ng-app="vizBuilder">
+        <div class="container" ng-controller="VizBuilderController" ng-view></div>
+        <div class="form-item form-type-textarea form-item-vizshare-definition">
+          <div class="form-textarea-wrapper resizable"><textarea init-model="" class="form-textarea form-control" name="vizshare_definition" id="edit-vizshare-definition" cols="60" rows="5">[{"name":"default","contentType":"text/csv","visualizationType":"piechart","fields":[{"vizField":"name","dataField":"Country"},{"vizField":"value","dataField":"Number"}],"url":"http://0.0.0.0:6543/api/beta/datatables/country/raw"}]</textarea></div>
+          </div>
+      </form>
     </div>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>

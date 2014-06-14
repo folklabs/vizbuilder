@@ -10,6 +10,24 @@ STEPS = [
   'Visualize!'
 ]
 
+# Directive to initialize model for vizshareDef form field, setting up the model
+# with any existing value if it is being used for editing.
+# See http://www.neontsunami.com/post/initialise-angular-model-using-the-initial-value
+# for more info.
+vizBuilder.directive 'initModel', ->
+  restrict: 'A'
+  link: (scope, element, attrs) ->
+    console.log 'directive initModel'
+
+    console.log element[0].value
+    scope.vizshareDef = element[0].value
+    element.attr 'ng-model', 'vizshareDef'
+    element.removeAttr 'init-model'
+    # scope.activeStep = attrs.activeStep
+    # scope.steps = STEPS
+    console.log 'scope'
+    console.log scope
+
 vizBuilder.directive 'wizardProgressBar', ->
   restrict: 'AE'
   link: (scope, element, attrs) ->
@@ -25,6 +43,7 @@ vizBuilder.directive 'wizardProgressBar', ->
 
 vizBuilder.controller "VizBuilderController", ($scope) ->
   console.log 'VizBuilderController'
+
 
 vizBuilder.controller "DatatableController", ($scope, datatableService) ->
   $scope.select = (dataset) ->
@@ -88,16 +107,21 @@ vizBuilder.directive 'visualization', ->
   link: (scope, element, attrs) ->
     console.log 'directive visualization'
     # console.log jsonSettingsTmp
+    vizType = scope.$parent.selectedRenderer.type
     jsonSettings =
       "name": "default"
       "contentType": "text/csv"
-      "visualizationType": scope.$parent.selectedRenderer.type
+      "visualizationType": vizType
       "fields": []
 
     console.log scope
     console.log scope.$parent.selectedDataset
     console.log scope.$parent.selectedRenderer
+
+    # Set the URL where to get the data
     jsonSettings['url'] = scope.$parent.selectedDataset['@id'] + '/raw'
+    if vizType == 'vizshare.geoleaflet'
+      jsonSettings['url'] = 'http://data-unity.com/api/beta/jobs/datatable-jobs/5a89e1e2-b11a-4b03-9910-8cf7eefe9c87'
     # TODO: Hardcoded dataset access
     for f in scope.$parent.selectedRenderer.datasets[0].fields
       console.log f.col

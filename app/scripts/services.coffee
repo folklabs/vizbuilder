@@ -1,14 +1,14 @@
 
-DU_API = 'http://0.0.0.0:6543/'
+# DATA_UNITY_URL = 'http://0.0.0.0:6543/'
+# DATA_UNITY_URL = 'http://data-unity.com/'
 
 
 vizBuilder = angular.module('vizBuilder')
 
-# vizBuilder.config (RestangularProvider) ->
-
 
 # console.log 'vizBuilder'
 vizBuilder.factory 'datatableService', ($q, $timeout, $http, Restangular) ->
+  # Add ability to also get fields for a single datatable REST object model
   Restangular.extendModel('datatables', (model) ->
 
     # Add ability to pull the field information into the datatable data
@@ -27,18 +27,9 @@ vizBuilder.factory 'datatableService', ($q, $timeout, $http, Restangular) ->
 
     return model
   )
-  # datatableService = {}
+
   fetchTables: () ->
-    # deferred = $q.defer()
-    # $timeout( () ->
-    #   $http.get(DU_API + 'datatablecatalogs/public').success((data) ->
-    #     deferred.resolve(data)
-    #   )
-    # )
-    # return deferred.promise
-
     promise = Restangular.all('datatablecatalogs/public').getList()
-
     return promise
 
   fetchTable: (tableRef) ->
