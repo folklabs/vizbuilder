@@ -37,7 +37,10 @@ vizBuilder.config ['$httpProvider', 'RestangularProvider', ($httpProvider, Resta
 vizBuilder.config (RestangularProvider) ->
   url = DATA_UNITY_URL
   console.log window.data_unity_url
-  if window.data_unity_url != undefined then url = window.data_unity_url
+  if window.data_unity_url != undefined
+    url = window.data_unity_url
+  else
+    window.data_unity_url = DATA_UNITY_URL
   RestangularProvider.setBaseUrl(url)
 
   # Handle list being returned inside a wrapper object
