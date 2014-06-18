@@ -22,6 +22,7 @@ vizBuilder.directive 'initModel', ->
   link: (scope, element, attrs) ->
     console.log 'directive initModel'
 
+    scope.imagePath = element.attr 'image-path'
     console.log element[0].value
     scope.vizshareDef = element[0].value
     element.attr 'ng-model', 'vizshareDef'

@@ -41,12 +41,12 @@
                 latRef = null,
                 latVizField = null,
                 latDataField = "",
-                longRef = null, 
+                longRef = null,
                 longVizField = null,
-                longDataField = "", 
-                textRef = null, 
+                longDataField = "",
+                textRef = null,
                 textVizField = null,
-                textDataField = "", 
+                textDataField = "",
                 sizeRef = null,
                 sizeVizField = null,
                 sizeDataField = "",
@@ -163,8 +163,8 @@
                         "type" : "Point",
                         "coordinates" : [long_, lat]
                     },
-                    "properties" : { 
-                        "name" : "test", 
+                    "properties" : {
+                        "name" : "test",
                         "circle": "true",
                         "radius": radius,
                         "text": text
@@ -247,14 +247,14 @@
                                 if (typeof featureProperties.fill !== "undefined") {
                                    geojsonMarkerOptions.color = featureProperties.fill;
                                 }
-                                
+
                                 marker = L.circle(latlng, featureProperties.radius, geojsonMarkerOptions);
                             } else {
                                 marker = L.marker(latlng);
                             }
 
                             // Add optional popup
-                            if (typeof (feature.properties) !== 'undefined' && 
+                            if (typeof (feature.properties) !== 'undefined' &&
                                 typeof (feature.properties.text) !== 'undefined') {
                                 marker.bindPopup(feature.properties.text);
                             }
@@ -282,7 +282,7 @@
                 scalesLookup[scaleConfig.name] = scale;
             });
 
-            // 
+            //
 
             // Generate marks
             $.each(markConfigs, function (index, markConfig) {
@@ -307,8 +307,8 @@
 
             //     L.geoJson(features, {
             //         pointToLayer: function (feature, latlng) {
-            //             if (typeof (feature.properties) !== 'undefined' && 
-            //                 typeof (feature.properties.circle) !== 'undefined' && 
+            //             if (typeof (feature.properties) !== 'undefined' &&
+            //                 typeof (feature.properties.circle) !== 'undefined' &&
             //                 feature.properties.circle == 'true') {
             //                 return L.circle(latlng, feature.properties.radius);
             //             }
@@ -319,8 +319,12 @@
 
         renderFuncGeoLeaflet = function (selector, dataHelper, vizSettings) {
             // References to look up in the data settings
-            var domElem = $(selector).get(0),
-                map = L.map(domElem).setView([51.505, -0.09], 13);
+            console.log('renderFuncGeoLeaflet')
+            console.log(selector)
+            // var domElem = $(selector).get(0),
+            var domElem = $('#visualization').get(0);
+            console.log( domElem);
+            var map = L.map(domElem).setView([51.505, -0.09], 7);
 
             // Set the background tiles
             L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -336,7 +340,7 @@
             q.awaitAll(function(error, results) {
                 var dataLookup = {};
                 //console.log("async results");
-                //console.log(results); 
+                //console.log(results);
                 // Save data results
                 $.each(results, function (index, data) {
                     var datasetName = dataSettings[index]["name"];

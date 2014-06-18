@@ -26,17 +26,24 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular) ->
           model.structure = structData
 
     model._poll = (url, callback) ->
-      $http.post(url, dataIn, {timeout: 1000}).
+      console.log 'poll: ' + url
+      $http.get(url, {timeout: 1000}).
         success((data, status, headers, config) ->
-          if (data.status === 'completed')
+          console.log 'success'
+          if (data.status == 'completed')
             callback(data.data)
           else
-            $timeout () -> model._poll(jobUrl, callback), 1000
+            $timeout () ->
+              console.log 'waiting...'
+              model._poll(url, callback)
+            , 1000
         ).
         error((data, status, headers, config) ->
           if (status == 404)
             console.log("404 error, going to try again")
-            $timeout () -> model._poll(jobUrl, callback), 1000
+            $timeout () ->
+              model._poll(url, callback)
+            , 1000
           else
             console.log(data)
         )
@@ -50,7 +57,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular) ->
       dataIn = {"dataTable": this['@id']}
       $http.post(url, dataIn, {cache: false, timeout: 3000}).
         success((data, status, headers, config) ->
-          console.log 'success'
+          console.log 'success (creating a job)'
           jobID = headers()['location'].replace url, ''
           jobID = jobID.replace '/', ''
           console.log jobID

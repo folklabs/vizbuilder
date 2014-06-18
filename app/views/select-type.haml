@@ -12,7 +12,7 @@
   %ul
     %li.renderer{'ng-repeat' => 'renderer in renderers'}
       %h4 {{ renderer.rendererName }}
-      %img{'src' => '{{ renderer.thumbnail }}', 'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
+      %img{'src' => '{{ $parent.imagePath }}{{ renderer.thumbnail }}', 'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
 
   .vb-view
 
