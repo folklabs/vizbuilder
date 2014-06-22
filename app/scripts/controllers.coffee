@@ -79,20 +79,33 @@ vizBuilder.controller "DatatableController", ($scope, DatatableService) ->
     dataset.btnState = 'btn-success'
     dataset.btnState = 'btn-danger' if dataset.selected
 
-  promise = DatatableService.fetchTables()
-  promise.then (data) ->
+    tablePromise = DatatableService.fetchTable dataset
+    tablePromise.then (table) ->
+      console.log 'table'
+      console.log table
+      # table.createGroupAggregateDataTable 'Total Pay Floor (?)', 'Organisation'
+      tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
+      console.log tableCreated
+      tableCreated.then (dataTableURL) ->
+        console.log dataTableURL
+        newTable = DatatableService.fetchTable {'@id': dataTableURL}
+        console.log newTable
+
+  tablesFetched = DatatableService.fetchTables()
+  tablesFetched.then (data) ->
     $scope.datatables = data
     # console.log data
 
     # TODO: remove! Testing hack to get one table
-    # tablePromise = DatatableService.fetchTable $scope.datatables[0]
+    # tablePromise = DatatableService.fetchTable $scope.datatables[4]
     # tablePromise.then (table) ->
     #   console.log 'table'
     #   console.log table
-    #   table.getDataEndpoint( (data) ->
-    #     console.log 'getDataEndpoint callback'
-    #     console.log data
-    #   )
+    #   table.createGroupAggregateDataTable 'Total Pay Floor (?)', 'Organisation'
+      # table.getDataEndpoint( (data) ->
+      #   console.log 'getDataEndpoint callback'
+      #   console.log data
+      # )
 
     # TODO: temp hack!!
     # $scope.$parent.selectedDataset = data[0]
@@ -153,24 +166,24 @@ vizBuilder.directive 'visualization', ['$rootScope', ($rootScope) ->
       "fields": []
       "vizOptions": scope.$parent.selectedRenderer.vizOptions
 
-    console.log scope
-    console.log scope.$parent.selectedDataset
-    console.log scope.$parent.selectedRenderer
+    # console.log scope
+    # console.log scope.$parent.selectedDataset
+    # console.log scope.$parent.selectedRenderer
 
     # Set the URL where to get the data
     # jsonSettings['url'] = scope.$parent.selectedDataset['@id'] + '/raw'
     endPoint = scope.$parent.selectedDataset.getDataEndpoint( (endpoint) ->
-      console.log endpoint
+      # console.log endpoint
       jsonSettings['url'] = endpoint
       # TODO: Hardcoded dataset access
       for f in scope.$parent.selectedRenderer.datasets[0].fields
-        console.log f.col
+        # console.log f.col
         fieldData =
           vizField: f.vizField
           dataField: f.col['fieldRef']
         jsonSettings.fields.push fieldData
-      console.log 'jsonSettings:'
-      console.log JSON.stringify(jsonSettings)
+      # console.log 'jsonSettings:'
+      # console.log JSON.stringify(jsonSettings)
       element.css 'width','900px'  #; height: 400px;'
       element.css 'height','500px'  #; height: 400px;'
       renderOpt =
@@ -183,14 +196,14 @@ vizBuilder.directive 'visualization', ['$rootScope', ($rootScope) ->
         data: [jsonSettings]
         vizOptions: scope.$parent.selectedRenderer.vizOptions
         # vizOptions: options
-      console.log 'Setting vizDef...'
+      # console.log 'Setting vizDef...'
 
       $rootScope.vizDef = JSON.stringify([jsonSettings])
       # scope.state.vizDef = JSON.stringify([jsonSettings])
       # scope.$parent.vizDef = JSON.stringify([jsonSettings])
-      console.log scope
-      console.log scope.$parent
-      console.log scope.$parent.vizDef
+      # console.log scope
+      # console.log scope.$parent
+      # console.log scope.$parent.vizDef
       element.vizshare(renderOpt)
     )
   ]

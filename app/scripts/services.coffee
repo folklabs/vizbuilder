@@ -7,23 +7,36 @@ vizBuilder = angular.module('vizBuilder')
 
 
 # console.log 'vizBuilder'
-vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular) ->
+vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootScope) ->
 
   # Add ability to also get fields for a single datatable REST object model
   Restangular.extendModel('datatables', (model) ->
     # Add ability to pull the field information into the datatable data
     model.fetchFields = () ->
-      console.log 'fetchFields'
-      console.log model
+      # console.log 'fetchFields'
+      # console.log model
       if !model.structData
         structureDefURL = model['structure']
-        console.log structureDefURL
+        # console.log structureDefURL
         id = structureDefURL.substring structureDefURL.lastIndexOf('/') + 1
-        console.log id
+        # console.log id
         structPromise = Restangular.one('qb/datastructdefs', id).get()
         structPromise.then (structData) ->
-          console.log structData
+          # console.log structData
           model.structure = structData
+
+    model.createGroupAggregateDataTable = (groupField, aggField) ->
+      deferred = $q.defer()
+      # TODO: fix
+      dataunity.config.setBaseUrl 'http://data-unity.com' #window.data_unity_url
+      tableCreated = dataunity.querytemplate.createGroupAggregateDataTable 'name', this['@id'], groupField, aggField
+      tableCreated.done (dataTableURL) ->
+        # console.log 'dataTableURL'
+        # console.log dataTableURL
+        # console.log deferred
+        $rootScope.$apply deferred.resolve(dataTableURL)
+        # this.fetchTable {'@id': dataTableURL}
+      return deferred.promise
 
     model._poll = (url, callback) ->
       console.log 'poll: ' + url
