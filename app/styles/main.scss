@@ -1,0 +1,9 @@
+/* Will be compiled down to a single stylesheet with your sass files */
+
+@import "bootstrap/bootstrap/variables";
+
+@import "vizbuilder";
+
+.placeholder {
+  background: #F8E0E0;
+}

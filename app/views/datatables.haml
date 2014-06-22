@@ -1,24 +1,38 @@
 %h2 Choose datasets
 
-%wizard-progress-bar{'active-step'=>'Datasets'}
+%wizard-progress-bar{'active-step'=>'datasets'}
 
 .buttons
   %a{'href' => '#/select-type'}
     .btn.btn-primary.pull-right Select visualization type
 
+%h4 Add one or more datasets you wish to visualize by clicking the <span class="glyphicon glyphicon-plus-sign"></span> button.
+%hr
 
-.content
-  / %p Browse datasets:
-  .list-group
+.row
+  .list-group.col-md-8
     .list-group-item{"ng-repeat"=>"dataset in datatables | orderBy:'label'"}
       %h4.title {{dataset.label}}
-      .btn.btn-success{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
-      %p Categories:
-      / .source Source {{dataset.dataSource.url}}
+      %p.pull-right
+        %strong.placeholder Added:
+        "date"
+      %p
+        %strong.placeholder Source:
+        "org name"
+      %p.pull-right
+        %strong.placeholder Updated:
+        "date"
+      %p
+        %strong.placeholder Source URL:
+        "link"
+      .btn.btn-success.pull-right{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
+      %p Columns available:
+      .label.label-default{"ng-repeat"=>"col in columns"} {{ col }}
 
-.sidebar-right
-  .selected-data
-    %h4 Selected datasets
-    %ul{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
-      %li
-        {{dataset.label}}
+  .col-md-4
+    .selected-data.panel.panel-primary
+      .panel-heading Selected datasets
+      %ul.list-group
+        %li.list-group-item{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
+          {{dataset.label}}
+          .btn.btn-default.pull-right{'ng-click' => 'select(dataset)'} Remove

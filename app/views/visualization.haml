@@ -1,10 +1,14 @@
 %h2 Edit visualisation
 
-%wizard-progress-bar{'active-step'=>'Visualize!'}
+%wizard-progress-bar{'active-step'=>'visualize'}
 
-%a{'href' => '#/select-columns'}
-  .btn.btn-primary Back
-/ .btn.btn-primary{'ng-click' => 'drawMap()'} Draw map
+.buttons
+  %input.btn.btn-primary.pull-right{'type'=>'submit', 'id'=>'edit-submit', 'name'=>"op", 'value'=>"Add metadata"}
+  %a{'href' => '#/select-columns'}
+    .btn.btn-default Back
+
+%h4 Edit the physical attributes of your visualization.
+%hr
 
 .visualization{'visualization'=>true, 'id'=>'visualization'}
 

@@ -1,18 +1,20 @@
 %h2 Select columns
 
-%wizard-progress-bar{'active-step'=>'Columns'}
+%wizard-progress-bar{'active-step'=>'columns'}
 
-%a{'href' => '#/visualization'}
-  .btn.btn-primary.pull-right Plot visualization
+.buttons
+  %a{'href' => '#/visualization'}
+    .btn.btn-primary.pull-right Plot visualization
+  %a{'href' => '#/select-type'}
+    .btn.btn-default Back
 
-%a{'href' => '#/select-type'}
-  .btn.btn-primary Back
 
-
-%div{'ng-if' => 'structureAvailable'}
-  / TODO: datasets array access
-  %div{"ng-repeat"=>"field in $parent.selectedRenderer.datasets[0].fields"}
-    %b {{ field.vizField }}
-    .list-group
-    %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}
-      {{ col.fieldRef }}
+.row
+  %div{'ng-if' => 'structureAvailable'}
+    / TODO: datasets array access
+    .col-md-8{"ng-repeat"=>"field in $parent.selectedRenderer.datasets[0].fields"}
+      %h4 Assign column(s) to the {{ field.vizField }}
+      %hr
+      .list-group
+      %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}
+        {{ col.fieldRef }}

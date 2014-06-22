@@ -108,8 +108,10 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular) ->
 renderers = [
   {
     rendererName: 'vizshare.barchart'
+    label: 'Bar chart'
+    description: 'A bar chart or bar graph is a chart with rectangular bars with lengths proportional to the quantitative values that they represent.'
     type: 'barchart'
-    thumbnail: '/images/chart_bar.png'
+    thumbnail: '/images/thmb-barchart-245px.png'
     datasets: [
       name: 'dataset1'
       fields: [
@@ -129,8 +131,10 @@ renderers = [
   }
   {
     rendererName: 'vizshare.piechart'
+    label: 'Pie chart'
+    description: 'A pie chart is a circular chart divided into sectors, illustrating numerical proportion. In a pie chart, the arc length of each sector (and consequently its central angle and area), is proportional to the quantity it represents.'
     type: 'piechart'
-    thumbnail: '/images/chart_pie.png'
+    thumbnail: '/images/thmb-donutchart-245px.png'
     datasets: [
       name: 'dataset1'
       fields: [
@@ -150,8 +154,10 @@ renderers = [
   }
   {
     rendererName: 'vizshare.geoleaflet'
-    type: 'map'
-    thumbnail: '/images/map.png'
+    label: 'Map plot'
+    description: 'Maps are symbolic depictions highlighting the relationships between elements such as objects, regions and themes within a territorial space.'
+    type: 'geoleaflet'
+    thumbnail: '/images/thmb-map-location-245px.png'
     datasets: [
       name: 'dataset1'
       "fields": [

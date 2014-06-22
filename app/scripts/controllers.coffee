@@ -2,51 +2,70 @@
 
 vizBuilder = angular.module("vizBuilder")
 
-
+# Wizard steps config
 STEPS = [
-  'Datasets'
-  'Visualization type'
-  'Columns'
-  'Visualize!'
+  {
+    name: 'datasets'
+    text: 'Select datasets'
+  }
+  {
+    name: 'type'
+    text: 'Select visualization type'
+  }
+  {
+    name: 'columns'
+    text: 'Select data columns'
+  }
+  {
+    name: 'visualize'
+    text: 'Edit visualization'
+  }
 ]
 
 # -----------------------------------------------------------------------------
 # Directives
 
-# Directive to initialize model for vizshareDef form field, setting up the model
+# Directive to initialize model for vizDef form field, setting up the model
 # with any existing value if it is being used for editing.
 # See http://www.neontsunami.com/post/initialise-angular-model-using-the-initial-value
 # for more info.
-vizBuilder.directive 'initModel', ->
+vizBuilder.directive 'initModel', ['$compile', ($compile) ->
   restrict: 'A'
   link: (scope, element, attrs) ->
     console.log 'directive initModel'
 
     scope.imagePath = element.attr 'image-path'
     console.log element[0].value
-    scope.vizshareDef = element[0].value
-    element.attr 'ng-model', 'vizshareDef'
+    scope.vizDef = element[0].value
+    element.attr 'ng-model', 'vizDef'
     element.removeAttr 'init-model'
+    $compile(element)(scope)
     # scope.activeStep = attrs.activeStep
     # scope.steps = STEPS
     console.log 'scope'
     console.log scope
+  ]
 
 vizBuilder.directive 'wizardProgressBar', ->
   restrict: 'AE'
   link: (scope, element, attrs) ->
-    console.log 'directive wizardProgressBar'
-
-    console.log attrs
+    # console.log 'directive wizardProgressBar'
+    # console.log attrs
     scope.activeStep = attrs.activeStep
     scope.steps = STEPS
-    console.log 'scope'
-    console.log scope
   templateUrl: '/views/wizard-progress-bar.html'
 
 
 # -----------------------------------------------------------------------------
 # Controllers
+
+vizBuilder.controller "VizDefController", ($scope, $rootScope) ->
+  console.log 'VizDefController'
+  $scope.state = {}
+  $rootScope.$watch('vizDef', (newVal, old) ->
+    $scope.state.vizDef = newVal
+  )
+
 
 vizBuilder.controller "VizBuilderController", ($scope) ->
   console.log 'VizBuilderController'
@@ -119,7 +138,7 @@ vizBuilder.controller "ColumnsController", ($scope, DatatableService, RendererSe
     col.selected[field.vizField] = ! col.selected[field.vizField]
 
 
-vizBuilder.directive 'visualization', ->
+vizBuilder.directive 'visualization', ['$rootScope', ($rootScope) ->
   restrict: 'AE'
   # transclude: true
   # template: '<div class="angular-leaflet-map"><div ng-transclude></div></div>'
@@ -132,6 +151,7 @@ vizBuilder.directive 'visualization', ->
       "contentType": "text/csv"
       "visualizationType": vizType
       "fields": []
+      "vizOptions": scope.$parent.selectedRenderer.vizOptions
 
     console.log scope
     console.log scope.$parent.selectedDataset
@@ -142,17 +162,6 @@ vizBuilder.directive 'visualization', ->
     endPoint = scope.$parent.selectedDataset.getDataEndpoint( (endpoint) ->
       console.log endpoint
       jsonSettings['url'] = endpoint
-      # jsonSettings['url'] = 'http://data-unity.com/api/beta/jobs/datatable-jobs/88232fde-267b-4eb2-a934-2e5b90ea93d4/tmp-output'
-
-      # console.log 'endPoint'
-      # console.log endPoint
-      # endPoint.then (data) ->
-      #   console.log 'data'
-      #   console.log data
-      #   jsonSettings['url'] = data.data
-
-      # if vizType == 'vizshare.geoleaflet'
-      #   jsonSettings['url'] = 'http://data-unity.com/api/beta/jobs/datatable-jobs/640320d8-cdda-43ef-97d5-98c9ffc8c69d/tmp-output'
       # TODO: Hardcoded dataset access
       for f in scope.$parent.selectedRenderer.datasets[0].fields
         console.log f.col
@@ -162,55 +171,10 @@ vizBuilder.directive 'visualization', ->
         jsonSettings.fields.push fieldData
       console.log 'jsonSettings:'
       console.log JSON.stringify(jsonSettings)
-
-      # options =      {
-      #     "scales": [
-      #         {
-      #             "name": "area",
-      #             "type": "linear",
-      #             "domain": {"data": "default", "vizField": "value"},
-      #             "range": [50000, 100000]
-      #         },
-      #         {
-      #             "name": "onetoten",
-      #             "type": "linear",
-      #             "domain": [1, 10],
-      #             "range": [50000, 1000000]
-      #         },
-      #         {
-      #             "name": "colours",
-      #             "type": "linear",
-      #             "domain": {"data": "default", "vizField": "value"},
-      #             "range": ["red", "blue"]
-      #         },
-      #         {
-      #             "name": "coloursonetoten",
-      #             "type": "linear",
-      #             "domain": [1, 10],
-      #             "range": ["red", "blue"]
-      #         }
-      #     ],
-      #     "marks": [
-      #         {
-      #             "type": "latlongcircle",
-      #             "from": {"data": "default"},
-      #             "properties": {
-      #                 "enter": {
-      #                     "lat": {"vizField": "lat"},
-      #                     "long": {"vizField": "long"},
-      #                     # "size": {"scale": "onetoten", "vizField": "value"},
-      #                     "text": {"vizField": "title"},
-      #                     "fill": {"scale": "colours", "vizField": "value"}
-      #                 }
-      #             }
-      #         }
-      #     ]
-      # }
-      # jsonSettings = {"name":"default","contentType":"text/csv","visualizationType":"map","fields":[{"vizField":"lat","dataField":"Latitude"},{"vizField":"long","dataField":"Longitude"},{"vizField":"title","dataField":"WARD"},{"vizField":"value","dataField":"LICENCE EXPIRY DATE"}],"url":"http://data-unity.com/api/beta/jobs/datatable-jobs/88232fde-267b-4eb2-a934-2e5b90ea93d4/tmp-output"}
-
       element.css 'width','900px'  #; height: 400px;'
       element.css 'height','500px'  #; height: 400px;'
       renderOpt =
+        # TODO: check
         selector: '#map'
         # width: 500
         # height: 400
@@ -219,10 +183,17 @@ vizBuilder.directive 'visualization', ->
         data: [jsonSettings]
         vizOptions: scope.$parent.selectedRenderer.vizOptions
         # vizOptions: options
-      scope.$parent.vizshareDef = JSON.stringify([jsonSettings])
-      # template: 'foo'
+      console.log 'Setting vizDef...'
+
+      $rootScope.vizDef = JSON.stringify([jsonSettings])
+      # scope.state.vizDef = JSON.stringify([jsonSettings])
+      # scope.$parent.vizDef = JSON.stringify([jsonSettings])
+      console.log scope
+      console.log scope.$parent
+      console.log scope.$parent.vizDef
       element.vizshare(renderOpt)
     )
+  ]
 
 vizBuilder.controller "VisualizationController", ($scope, RendererService) ->
   $scope.renderers = RendererService.getRenderers()

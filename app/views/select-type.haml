@@ -1,18 +1,22 @@
 %h2 Choose visualisation
 
-%wizard-progress-bar{'active-step'=>'Visualization type'}
+%wizard-progress-bar{'active-step'=>'type'}
 
 .buttons
   %a{'href' => '#/select-columns'}
     .btn.btn-primary.pull-right Choose columns
   %a{'href' => '#/'}
-    .btn.btn-primary Back
+    .btn.btn-default Back
 
-.explorer
-  %ul
-    %li.renderer{'ng-repeat' => 'renderer in renderers'}
-      %h4 {{ renderer.rendererName }}
-      %img{'src' => '{{ $parent.imagePath }}{{ renderer.thumbnail }}', 'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
+%h4 Select the type of visualization you wish to create.
+%hr
+
+.row
+  .col-sm-6.col-md-3{'ng-repeat' => 'renderer in renderers'}
+    .thumbnail{'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
+      %img.renderer{'src' => '{{ $parent.imagePath }}{{ renderer.thumbnail }}'}
+      %h4 {{ renderer.label }}
+      %p {{ renderer.description }}
 
   .vb-view
 
