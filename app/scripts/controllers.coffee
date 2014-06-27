@@ -34,7 +34,7 @@ vizBuilder.directive 'initModel', ['$compile', ($compile) ->
   link: (scope, element, attrs) ->
     console.log 'directive initModel'
 
-    scope.imagePath = element.attr 'image-path'
+    scope.$parent.imagePath = element.attr 'image-path'
     console.log element[0].value
     scope.vizDef = element[0].value
     element.attr 'ng-model', 'vizDef'
@@ -76,25 +76,28 @@ vizBuilder.controller "DatatableController", ($scope, DatatableService) ->
     dataset.selected = !dataset.selected
     $scope.$parent.selectedDataset = dataset
     console.log $scope.$parent
-    dataset.btnState = 'btn-success'
+    dataset.btnState = 'btn-primary'
     dataset.btnState = 'btn-danger' if dataset.selected
 
-    tablePromise = DatatableService.fetchTable dataset
-    tablePromise.then (table) ->
-      console.log 'table'
-      console.log table
-      # table.createGroupAggregateDataTable 'Total Pay Floor (?)', 'Organisation'
-      tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
-      console.log tableCreated
-      tableCreated.then (dataTableURL) ->
-        console.log dataTableURL
-        newTable = DatatableService.fetchTable {'@id': dataTableURL}
-        console.log newTable
+    # tablePromise = DatatableService.fetchTable dataset
+    # tablePromise.then (table) ->
+    #   console.log 'table'
+    #   console.log table
+    #   # table.createGroupAggregateDataTable 'Total Pay Floor (?)', 'Organisation'
+    #   tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
+    #   console.log tableCreated
+    #   tableCreated.then (dataTableURL) ->
+    #     console.log dataTableURL
+    #     newTable = DatatableService.fetchTable {'@id': dataTableURL}
+    #     console.log newTable
 
   tablesFetched = DatatableService.fetchTables()
   tablesFetched.then (data) ->
+    console.log 'tablesFetched'
     $scope.datatables = data
-    # console.log data
+    console.log data
+
+    # data[0].fetchSources()
 
     # TODO: remove! Testing hack to get one table
     # tablePromise = DatatableService.fetchTable $scope.datatables[4]
@@ -116,6 +119,7 @@ vizBuilder.controller "VisualizationTypeController", ($scope, RendererService, $
   # console.log $scope.renderers
 
   $scope.selectRenderer = (renderer) ->
+    console.log 'selectRenderer'
     for r in $scope.renderers
       r.selected = false
     $scope.$parent.selectedRenderer = renderer
@@ -127,26 +131,27 @@ vizBuilder.controller "ColumnsController", ($scope, DatatableService, RendererSe
   console.log $scope.$parent.selectedDataset
   console.log $scope.$parent.selectedRenderer
 
-  if ! $scope.$parent.selectedDataset.structure
-    dtPromise = DatatableService.fetchTable $scope.$parent.selectedDataset
-    dtPromise.then (datatable) ->
-      console.log 'fetchTable promise'
-      console.log datatable
-      # Replace the datatable reference with the full object
-      $scope.$parent.selectedDataset = datatable
-      $scope.structureAvailable = true
-      # datatable.fetchFields()
-    # $scope.$parent.selectedDataset.fetchFields()
-  else
-    $scope.structureAvailable = true
+  # TODO: is any of this needed if structure is retrieved earlier?
+  # if ! $scope.$parent.selectedDataset.structure
+  #   dtPromise = DatatableService.fetchTable $scope.$parent.selectedDataset
+  #   dtPromise.then (datatable) ->
+  #     console.log 'fetchTable promise'
+  #     console.log datatable
+  #     # Replace the datatable reference with the full object
+  #     $scope.$parent.selectedDataset = datatable
+  #     $scope.structureAvailable = true
+  #     # datatable.fetchFields()
+  #   # $scope.$parent.selectedDataset.fetchFields()
+  # else
+  #   $scope.structureAvailable = true
 
   $scope.selectColForField = (field, col) ->
     if col.selected == undefined
       col.selected = {}
     for c in $scope.$parent.selectedDataset['structure']['component']
       c.selected[field.vizField] = false if c.selected != undefined
-    console.log field
-    console.log col
+    # console.log field
+    # console.log col
     field.col = col
     col.selected[field.vizField] = ! col.selected[field.vizField]
 
@@ -170,41 +175,49 @@ vizBuilder.directive 'visualization', ['$rootScope', ($rootScope) ->
     # console.log scope.$parent.selectedDataset
     # console.log scope.$parent.selectedRenderer
 
-    # Set the URL where to get the data
-    # jsonSettings['url'] = scope.$parent.selectedDataset['@id'] + '/raw'
-    endPoint = scope.$parent.selectedDataset.getDataEndpoint( (endpoint) ->
-      # console.log endpoint
-      jsonSettings['url'] = endpoint
-      # TODO: Hardcoded dataset access
-      for f in scope.$parent.selectedRenderer.datasets[0].fields
-        # console.log f.col
-        fieldData =
-          vizField: f.vizField
-          dataField: f.col['fieldRef']
-        jsonSettings.fields.push fieldData
-      # console.log 'jsonSettings:'
-      # console.log JSON.stringify(jsonSettings)
-      element.css 'width','900px'  #; height: 400px;'
-      element.css 'height','500px'  #; height: 400px;'
-      renderOpt =
-        # TODO: check
-        selector: '#map'
-        # width: 500
-        # height: 400
-        rendererName: scope.$parent.selectedRenderer['rendererName']
-        # rendererName: 'vizshare.geoleaflet'
-        data: [jsonSettings]
-        vizOptions: scope.$parent.selectedRenderer.vizOptions
-        # vizOptions: options
-      # console.log 'Setting vizDef...'
+    dataset = scope.$parent.selectedRenderer.datasets[0]
+    # tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
+    tableCreated = table.createGroupAggregateDataTable dataset.fields[0].col['fieldRef'] dataset.fields[1].col['fieldRef']
+    console.log tableCreated
+    tableCreated.then (dataTableURL) ->
+      console.log dataTableURL
+      newTable = DatatableService.fetchTable {'@id': dataTableURL}
+      console.log newTable
 
-      $rootScope.vizDef = JSON.stringify([jsonSettings])
-      # scope.state.vizDef = JSON.stringify([jsonSettings])
-      # scope.$parent.vizDef = JSON.stringify([jsonSettings])
-      # console.log scope
-      # console.log scope.$parent
-      # console.log scope.$parent.vizDef
-      element.vizshare(renderOpt)
+      # Set the URL where to get the data
+      endPoint = scope.$parent.selectedDataset.getDataEndpoint( (endpoint) ->
+        # console.log endpoint
+        jsonSettings['url'] = endpoint
+        # TODO: Hardcoded dataset access
+        for f in dataset.fields
+          # console.log f.col
+          fieldData =
+            vizField: f.vizField
+            dataField: f.col['fieldRef']
+          jsonSettings.fields.push fieldData
+        # console.log 'jsonSettings:'
+        # console.log JSON.stringify(jsonSettings)
+        element.css 'width','900px'  #; height: 400px;'
+        element.css 'height','500px'  #; height: 400px;'
+        renderOpt =
+          # TODO: check
+          selector: '#map'
+          # width: 500
+          # height: 400
+          rendererName: scope.$parent.selectedRenderer['rendererName']
+          # rendererName: 'vizshare.geoleaflet'
+          data: [jsonSettings]
+          vizOptions: scope.$parent.selectedRenderer.vizOptions
+          # vizOptions: options
+        # console.log 'Setting vizDef...'
+
+        $rootScope.vizDef = JSON.stringify([jsonSettings])
+        # scope.state.vizDef = JSON.stringify([jsonSettings])
+        # scope.$parent.vizDef = JSON.stringify([jsonSettings])
+        # console.log scope
+        # console.log scope.$parent
+        # console.log scope.$parent.vizDef
+        element.vizshare(renderOpt)
     )
   ]
 

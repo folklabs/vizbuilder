@@ -11,27 +11,35 @@
 
 .row
   .list-group.col-md-8
+    %div.text-center{"ng-hide"=>"datatables"}
+      %i.fa.fa-spinner.fa-spin.fa-5x
+      %p.text-center Loading data
+
     .list-group-item{"ng-repeat"=>"dataset in datatables | orderBy:'label'"}
       %h4.title {{dataset.label}}
+      %div {{dataset.source.description}}
       %p.pull-right
-        %strong.placeholder Added:
-        "date"
+        %strong Issued:
+        {{(dataset.source.distribution.issued | date:'d MMM yyyy') || "Unknown"}}
       %p
-        %strong.placeholder Source:
-        "org name"
+        %strong Source:
+        {{dataset.source.distribution.author || "Unknown"}}
       %p.pull-right
-        %strong.placeholder Updated:
-        "date"
+        %strong Modified:
+        {{(dataset.source.distribution.modified | date:'d MMM yyyy') || "Unknown"}}
       %p
-        %strong.placeholder Source URL:
-        "link"
-      .btn.btn-success.pull-right{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
+        %strong Source URL:
+        %a{"href"=>"{{dataset.source.distribution.downloadURL}}", "ng-show"=>"dataset.source.distribution.downloadURL.length > 0"} {{dataset.source.distribution.downloadURL}}
+        %span{"ng-hide"=>"dataset.source.distribution.downloadURL.length > 0"} Unknown
+      .btn.btn-primary.pull-right{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
       %p Columns available:
-      .label.label-default{"ng-repeat"=>"col in columns"} {{ col }}
+      .label.label-default{"ng-repeat"=>"col in dataset.structure.component"} {{ col.fieldRef }}
 
   .col-md-4
     .selected-data.panel.panel-primary
-      .panel-heading Selected datasets
+      .panel-heading
+        Selected datasets
+        %span.badge.pull-right {{(datatables | filter: {selected: true}).length}}
       %ul.list-group
         %li.list-group-item{"ng-repeat"=>"dataset in datatables | filter: {selected: true}"}
           {{dataset.label}}

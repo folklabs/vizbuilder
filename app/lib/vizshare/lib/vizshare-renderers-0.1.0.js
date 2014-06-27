@@ -7,7 +7,7 @@ vizshare.vega = (function ($, vg) {
     var render = function (renderTo, spec) {
               vg.parse.spec(spec, function (chart) {
                     var domElem = $(renderTo).get(0);
-                    chart({el: domElem}).renderer("svg").update(); 
+                    chart({el: domElem}).renderer("svg").update();
               });
         },
         encodeFieldName = function (fieldName) {
@@ -47,7 +47,7 @@ vizshare.vega = (function ($, vg) {
             height: 200,
             width: 400
         }, vizSettings || {});
-        
+
         // Vega spec
         vegaSpec = {
             "width": vizSettingsFinal.width,
@@ -81,7 +81,7 @@ vizshare.vega = (function ($, vg) {
             ],
             "axes": [
                 {
-                    "type": "x", 
+                    "type": "x",
                     "scale": "x"
                 },
                 {"type": "y", "scale": "y"}
@@ -153,7 +153,7 @@ vizshare.vega = (function ($, vg) {
         outerRadius = Math.floor(minExtent / 2);
         innerRadius = Math.floor(minExtent * 0.30);
         labelRadius = Math.floor(innerRadius + ((outerRadius - innerRadius) / 2));
-        
+
         // Vega spec
         vegaSpec = {
             "width": width,
@@ -281,7 +281,7 @@ vizshare.vega = (function ($, vg) {
             height: 200,
             width: 400
         }, vizSettings || {});
-        
+
         // Vega spec
         vegaSpec = {
             "width": vizSettingsFinal.width,
@@ -291,7 +291,7 @@ vizshare.vega = (function ($, vg) {
                     "name": dataSetRef,
                     "url": dataset.url,
                     "format": {
-                        "type": "csv", 
+                        "type": "csv",
                         "parse": {
                             fieldXAxis: "number",
                             fieldYAxis: "number"
@@ -314,18 +314,18 @@ vizshare.vega = (function ($, vg) {
                     "domain": {"data": dataSetRef, "field": "data." + fieldYAxis}
                 },
                 {
-                    "name": "color", 
-                    "type": "ordinal", 
+                    "name": "color",
+                    "type": "ordinal",
                     "range": "category10"
                 }
             ],
             "axes": [
                 {
-                    "type": "x", 
+                    "type": "x",
                     "scale": "x"
                 },
                 {
-                    "type": "y", 
+                    "type": "y",
                     "scale": "y"
                 }
             ],
@@ -363,7 +363,7 @@ vizshare.vega = (function ($, vg) {
                         }
                     ]
                 }
-                
+
             ]
         };
 

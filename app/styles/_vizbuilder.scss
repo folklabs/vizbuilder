@@ -1,27 +1,27 @@
-.container {
-  padding-left: 10px;
-}
+// .container {
+//   padding-left: 10px;
+// }
 
-.content {
-  display: inline-block;
-  width: 70%;
-  .dataset {
-    .title {
-      display: inline-block;
-      width: 70%;
-    }
-    .btn {
-      display: inline-block;
-      float: right;
-    }
-  }
-}
+// .content {
+//   display: inline-block;
+//   width: 70%;
+//   .dataset {
+//     .title {
+//       display: inline-block;
+//       width: 70%;
+//     }
+//     .btn {
+//       display: inline-block;
+//       float: right;
+//     }
+//   }
+// }
 
-.sidebar-right {
-  display: inline-block;
-  vertical-align: top;
-  width: 20%;
-}
+// .sidebar-right {
+//   display: inline-block;
+//   vertical-align: top;
+//   width: 20%;
+// }
 
 wizard-progress-bar {
   display: block;
@@ -67,7 +67,19 @@ wizard-progress-bar {
 }
 
 .selected {
-  border: 2px solid red;
+  border: 1px solid red;
 }
 
+.viz-builder {
+  .label {
+    display: inline-block;
+    margin-right: 5px;
+  }
+}
+
+.selected-data {
+  .list-group-item {
+    padding-bottom: 25px;
+  }
+}
 

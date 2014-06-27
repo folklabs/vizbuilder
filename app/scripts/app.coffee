@@ -1,7 +1,8 @@
 
 DATA_UNITY_URL = 'http://0.0.0.0:6543/api/beta'
 # DATA_UNITY_URL = 'http://dataunity.apiary-mock.com/api/beta'
-DATA_UNITY_URL = 'http://data-unity.com/api/beta'
+DATA_UNITY_HOST = 'http://data-unity.com'
+DATA_UNITY_URL = DATA_UNITY_HOST + '/api/beta'
 
 # Create vizBuilder module
 vizBuilder = angular.module("vizBuilder", ['restangular'])
@@ -42,11 +43,3 @@ vizBuilder.config (RestangularProvider) ->
   else
     window.data_unity_url = DATA_UNITY_URL
   RestangularProvider.setBaseUrl(url)
-
-  # Handle list being returned inside a wrapper object
-  RestangularProvider.addResponseInterceptor((data, operation, what, url, response, deferred) ->
-    extractedData = data
-    if (operation == "getList")
-      extractedData = data.dataTable
-    return extractedData
-  )

@@ -13,10 +13,9 @@
 
 .row
   .col-sm-6.col-md-3{'ng-repeat' => 'renderer in renderers'}
-    .thumbnail{'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
-      %img.renderer{'src' => '{{ $parent.imagePath }}{{ renderer.thumbnail }}'}
-      %h4 {{ renderer.label }}
-      %p {{ renderer.description }}
+    .button.btn-default.btn-block{"href"=>"", 'ng-click' => 'selectRenderer(renderer)', 'ng-class'=>'{selected: renderer.selected}'}
+      %img{'ng-src' => '{{ $parent.imagePath }}{{ renderer.thumbnail }}'}
+    %h4 {{ renderer.label }}
+    %p {{ renderer.description }}
 
-  .vb-view
 

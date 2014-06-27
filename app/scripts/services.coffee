@@ -6,24 +6,49 @@
 vizBuilder = angular.module('vizBuilder')
 
 
+vizBuilder.config (RestangularProvider) ->
+  # Handle list being returned inside a wrapper object
+  RestangularProvider.addResponseInterceptor((data, operation, what, url, response, deferred) ->
+    # console.log url
+    extractedData = data
+
+    if (operation == "getList")
+      # console.log extractedData
+      if url.match 'datatablecatalogs'
+        extractedData = data.dataTable
+      else if url.match 'sources-datasets'
+        # Fix so no need for array wrapper
+        extractedData = [data.dataset]
+    # console.log extractedData.structure
+    # extractedData.structure2 = extractedData.structure
+    return extractedData
+  )
+
 # console.log 'vizBuilder'
 vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootScope) ->
 
   # Add ability to also get fields for a single datatable REST object model
   Restangular.extendModel('datatables', (model) ->
     # Add ability to pull the field information into the datatable data
-    model.fetchFields = () ->
-      # console.log 'fetchFields'
-      # console.log model
-      if !model.structData
-        structureDefURL = model['structure']
-        # console.log structureDefURL
-        id = structureDefURL.substring structureDefURL.lastIndexOf('/') + 1
-        # console.log id
-        structPromise = Restangular.one('qb/datastructdefs', id).get()
-        structPromise.then (structData) ->
-          # console.log structData
-          model.structure = structData
+    # model.fetchFields = () ->
+    #   # console.log 'fetchFields'
+    #   # console.log model
+    #   if !model.structData
+    #     structureDefURL = model['structure']
+    #     # console.log structureDefURL
+    #     id = structureDefURL.substring structureDefURL.lastIndexOf('/') + 1
+    #     # console.log id
+    #     structPromise = Restangular.one('qb/datastructdefs', id).get()
+    #     structPromise.then (structData) ->
+    #       # console.log structData
+    #       model.structure = structData
+
+    model.fetchSources = () ->
+      gotDatasets = this.all('sources-datasets').getList()
+      gotDatasets.then (data) ->
+        # console.log data
+        model.source = data[0]
+        # console.log model
 
     model.createGroupAggregateDataTable = (groupField, aggField) ->
       deferred = $q.defer()
@@ -104,8 +129,34 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
   )
 
   fetchTables: () ->
-    promise = Restangular.all('datatablecatalogs/public').getList()
-    return promise
+    deferred = $q.defer()
+    gotList = Restangular.all('datatablecatalogs/public').getList()
+    # Map the list of datasets into a set of Restangular objects
+    gotList.then (data) ->
+      dataTables = data.map (tableRef) ->
+        console.log tableRef['@id']
+        tableURL = tableRef['@id']
+        id = tableURL.substring tableURL.lastIndexOf('/') + 1
+        # dtPromise = Restangular.one('datatables', id).get()
+        dataTable = Restangular.one('datatables', id)
+        dataTable['@id'] = tableRef['@id']
+        dataTable.label = tableRef.label
+        dataTable.get({retrieve: 'structure'}).then (dataTableData) ->
+          # This pattern is assigning back the useful data into original dataTable
+          # Restangular object. May not be the most effective way to do this.
+          dataTable.structure = dataTableData.structure
+          # console.log 'dataTable2.structure'
+          # console.log dataTable.structure
+          # console.log dataTable2
+          # console.log dataTable2.structure2
+          # console.log dataTable.label
+          dataTable.fetchSources()
+          # return dataTable2
+        return dataTable
+      console.log $rootScope
+      # $rootScope.$apply deferred.resolve(dataTables)
+      $timeout () -> deferred.resolve(dataTables)
+    return deferred.promise
 
   fetchTable: (tableRef) ->
     console.log 'fetchTable'
