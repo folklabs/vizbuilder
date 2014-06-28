@@ -7,8 +7,13 @@
   %a{'href' => '#/select-columns'}
     .btn.btn-default Back
 
-%h4 Edit the physical attributes of your visualization.
+/ %h4 Edit the physical attributes of your visualization.
+%h4 Review your visualization.
 %hr
+
+%div.text-center{"ng-hide"=>"state.vizRendered"}
+  %i.fa.fa-spinner.fa-spin.fa-5x
+  %p.text-center Building visualization...
 
 .visualization{'visualization'=>true, 'id'=>'visualization'}
 

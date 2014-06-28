@@ -10,11 +10,16 @@
 
 
 .row
-  %div{'ng-if' => 'structureAvailable'}
-    / TODO: datasets array access
-    .col-md-8{"ng-repeat"=>"field in $parent.selectedRenderer.datasets[0].fields"}
-      %h4 Assign column(s) to the {{ field.vizField }}
-      %hr
-      .list-group
-      %a.list-group-item{"ng-repeat"=>"col in $parent.selectedDataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}
+  / %div{'ng-if' => 'structureAvailable'}
+  / TODO: datasets array access
+  .col-md-8{"ng-repeat"=>"field in state.renderer.datasets[0].fields"}
+    %h4 Assign column(s) to the {{ field.vizField }}
+    %hr
+    .list-group
+      %a.list-group-item{"ng-repeat"=>"col in state.dataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}
         {{ col.fieldRef }}
+
+    %div{'ng-show' => 'field.needsAggregate'}
+      %h5 Select aggregation function for this column
+      %label.radio{"ng-repeat"=>"method in aggregationMethods"}
+        %input{'type'=>"radio", 'name'=>"inlineRadioOptions", 'id'=>"{{method}}", 'value'=>"{{method}}", 'ng-model'=>'state.aggregationMethod'} {{method}}

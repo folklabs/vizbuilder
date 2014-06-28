@@ -13,7 +13,7 @@
   .list-group.col-md-8
     %div.text-center{"ng-hide"=>"datatables"}
       %i.fa.fa-spinner.fa-spin.fa-5x
-      %p.text-center Loading data
+      %p.text-center Loading data...
 
     .list-group-item{"ng-repeat"=>"dataset in datatables | orderBy:'label'"}
       %h4.title {{dataset.label}}
@@ -29,7 +29,7 @@
         {{(dataset.source.distribution.modified | date:'d MMM yyyy') || "Unknown"}}
       %p
         %strong Source URL:
-        %a{"href"=>"{{dataset.source.distribution.downloadURL}}", "ng-show"=>"dataset.source.distribution.downloadURL.length > 0"} {{dataset.source.distribution.downloadURL}}
+        %a{"href"=>"{{dataset.source.distribution.downloadURL}}", "target"=>"_blank", "ng-show"=>"dataset.source.distribution.downloadURL.length > 0"} {{dataset.source.distribution.downloadURL}}
         %span{"ng-hide"=>"dataset.source.distribution.downloadURL.length > 0"} Unknown
       .btn.btn-primary.pull-right{'ng-click' => 'select(dataset)', 'ng-class'=>'dataset.btnState'} {{ !dataset.selected && 'Select' || 'Remove' }}
       %p Columns available:

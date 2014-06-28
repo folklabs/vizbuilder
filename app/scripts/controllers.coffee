@@ -22,6 +22,17 @@ STEPS = [
   }
 ]
 
+AGGREGATION_METHODS = [
+  "Count"
+  "Sum"
+  "Average"
+  "Min"
+  "Max"
+  "First"
+  "Last"
+]
+
+
 # -----------------------------------------------------------------------------
 # Directives
 
@@ -29,12 +40,12 @@ STEPS = [
 # with any existing value if it is being used for editing.
 # See http://www.neontsunami.com/post/initialise-angular-model-using-the-initial-value
 # for more info.
-vizBuilder.directive 'initModel', ['$compile', ($compile) ->
+vizBuilder.directive 'initModel', ['$rootScope', '$compile', ($rootScope, $compile) ->
   restrict: 'A'
   link: (scope, element, attrs) ->
     console.log 'directive initModel'
 
-    scope.$parent.imagePath = element.attr 'image-path'
+    $rootScope.imagePath = element.attr 'image-path'
     console.log element[0].value
     scope.vizDef = element[0].value
     element.attr 'ng-model', 'vizDef'
@@ -61,7 +72,9 @@ vizBuilder.directive 'wizardProgressBar', ->
 
 vizBuilder.controller "VizDefController", ($scope, $rootScope) ->
   console.log 'VizDefController'
-  $scope.state = {}
+  $rootScope.state = {}
+
+  # Copy vizDef info to make it accessible
   $rootScope.$watch('vizDef', (newVal, old) ->
     $scope.state.vizDef = newVal
   )
@@ -71,11 +84,11 @@ vizBuilder.controller "VizBuilderController", ($scope) ->
   console.log 'VizBuilderController'
 
 
-vizBuilder.controller "DatatableController", ($scope, DatatableService) ->
+vizBuilder.controller "DatatableController", ($scope, $rootScope, DatatableService) ->
   $scope.select = (dataset) ->
     dataset.selected = !dataset.selected
-    $scope.$parent.selectedDataset = dataset
-    console.log $scope.$parent
+    $rootScope.state.dataset = dataset
+    # console.log $$rootScope
     dataset.btnState = 'btn-primary'
     dataset.btnState = 'btn-danger' if dataset.selected
 
@@ -111,10 +124,10 @@ vizBuilder.controller "DatatableController", ($scope, DatatableService) ->
       # )
 
     # TODO: temp hack!!
-    # $scope.$parent.selectedDataset = data[0]
+    # $$rootScope.state.dataset = data[0]
 
 
-vizBuilder.controller "VisualizationTypeController", ($scope, RendererService, $http) ->
+vizBuilder.controller "VisualizationTypeController", ($scope, $rootScope, RendererService, $http) ->
   $scope.renderers = RendererService.getRenderers()
   # console.log $scope.renderers
 
@@ -122,33 +135,44 @@ vizBuilder.controller "VisualizationTypeController", ($scope, RendererService, $
     console.log 'selectRenderer'
     for r in $scope.renderers
       r.selected = false
-    $scope.$parent.selectedRenderer = renderer
+    $rootScope.state.renderer = renderer
+    console.log $rootScope.state
     renderer.selected = true
 
 
-vizBuilder.controller "ColumnsController", ($scope, DatatableService, RendererService) ->
+vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService, RendererService) ->
   console.log 'ColumnsController'
-  console.log $scope.$parent.selectedDataset
-  console.log $scope.$parent.selectedRenderer
+  console.log $rootScope.state.dataset
+  console.log $rootScope.state.renderer
+  $scope.aggregationMethods = AGGREGATION_METHODS
+  $rootScope.state.aggregationMethod = "Count"
+  # $scope.selectedMethod = "Count"
+  console.log $scope
+  $scope.$watch 'state.aggregationMethod', (newVal) ->
+    console.log 'aggregationMethod ' + newVal
+
+
+  $scope.selectAggregationMethod = (method) ->
+    $scope.selectedMethod = method
 
   # TODO: is any of this needed if structure is retrieved earlier?
-  # if ! $scope.$parent.selectedDataset.structure
-  #   dtPromise = DatatableService.fetchTable $scope.$parent.selectedDataset
+  # if ! $$rootScope.state.dataset.structure
+  #   dtPromise = DatatableService.fetchTable $$rootScope.state.dataset
   #   dtPromise.then (datatable) ->
   #     console.log 'fetchTable promise'
   #     console.log datatable
   #     # Replace the datatable reference with the full object
-  #     $scope.$parent.selectedDataset = datatable
+  #     $$rootScope.state.dataset = datatable
   #     $scope.structureAvailable = true
   #     # datatable.fetchFields()
-  #   # $scope.$parent.selectedDataset.fetchFields()
+  #   # $$rootScope.state.dataset.fetchFields()
   # else
   #   $scope.structureAvailable = true
 
   $scope.selectColForField = (field, col) ->
     if col.selected == undefined
       col.selected = {}
-    for c in $scope.$parent.selectedDataset['structure']['component']
+    for c in $rootScope.state.dataset['structure']['component']
       c.selected[field.vizField] = false if c.selected != undefined
     # console.log field
     # console.log col
@@ -156,69 +180,88 @@ vizBuilder.controller "ColumnsController", ($scope, DatatableService, RendererSe
     col.selected[field.vizField] = ! col.selected[field.vizField]
 
 
-vizBuilder.directive 'visualization', ['$rootScope', ($rootScope) ->
+vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootScope, DatatableService) ->
   restrict: 'AE'
   # transclude: true
   # template: '<div class="angular-leaflet-map"><div ng-transclude></div></div>'
   link: (scope, element, attrs) ->
     console.log 'directive visualization'
-    # console.log jsonSettingsTmp
-    vizType = scope.$parent.selectedRenderer.type
+    console.log $rootScope.state.aggregationMethod
+    vizType = $rootScope.state.renderer.type
     jsonSettings =
       "name": "default"
       "contentType": "text/csv"
       "visualizationType": vizType
       "fields": []
-      "vizOptions": scope.$parent.selectedRenderer.vizOptions
+      "vizOptions": $rootScope.state.renderer.vizOptions
 
     # console.log scope
-    # console.log scope.$parent.selectedDataset
-    # console.log scope.$parent.selectedRenderer
+    # console.log $rootScope.state.dataset
+    # console.log $rootScope.state.renderer
 
-    dataset = scope.$parent.selectedRenderer.datasets[0]
+    dataset = $rootScope.state.renderer.datasets[0]
+    dataTable = $rootScope.state.dataset
     # tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
-    tableCreated = table.createGroupAggregateDataTable dataset.fields[0].col['fieldRef'] dataset.fields[1].col['fieldRef']
+    console.log dataset.fields[0].col['fieldRef']
+    console.log dataset.fields[1].col['fieldRef']
+    console.log dataTable
+
+    groupField = dataset.fields[0].col['fieldRef']
+    aggField = dataset.fields[1].col['fieldRef']
+    aggType = $rootScope.state.aggregationMethod
+
+    fieldNames = dataunity.querytemplate.groupAggregateDataTableFieldNames(groupField, aggField, aggType)
+    console.log 'fieldNames'
+    console.log fieldNames
+    if dataset.type != 'geoleaflet'
+      groupField = fieldNames.groupField
+      aggField = fieldNames.aggField
+
+    tableCreated = dataTable.createGroupAggregateDataTable groupField, aggField, aggType
     console.log tableCreated
     tableCreated.then (dataTableURL) ->
       console.log dataTableURL
-      newTable = DatatableService.fetchTable {'@id': dataTableURL}
-      console.log newTable
+      tableFetched = DatatableService.fetchTable {'@id': dataTableURL}
+      console.log tableFetched
+      tableFetched.then (pipeDataTable) ->
+        # Set the URL where to get the data
+        endPoint = pipeDataTable.getDataEndpoint (endpoint) ->
+          # console.log endpoint
+          jsonSettings['url'] = endpoint
+          # TODO: Hardcoded dataset access
+          for f in dataset.fields
+            console.log f.col
+            dataField = groupField
+            if f.needsAggregate
+              dataField = aggField
+            fieldData =
+              vizField: f.vizField
+              dataField: dataField
+            jsonSettings.fields.push fieldData
+          # console.log 'jsonSettings:'
+          # console.log JSON.stringify(jsonSettings)
+          element.css 'width','900px'  #; height: 400px;'
+          element.css 'height','500px'  #; height: 400px;'
+          renderOpt =
+            # TODO: check
+            selector: '#map'
+            # width: 500
+            # height: 400
+            rendererName: $rootScope.state.renderer['rendererName']
+            # rendererName: 'vizshare.geoleaflet'
+            data: [jsonSettings]
+            vizOptions: $rootScope.state.renderer.vizOptions
+            # vizOptions: options
+          # console.log 'Setting vizDef...'
 
-      # Set the URL where to get the data
-      endPoint = scope.$parent.selectedDataset.getDataEndpoint( (endpoint) ->
-        # console.log endpoint
-        jsonSettings['url'] = endpoint
-        # TODO: Hardcoded dataset access
-        for f in dataset.fields
-          # console.log f.col
-          fieldData =
-            vizField: f.vizField
-            dataField: f.col['fieldRef']
-          jsonSettings.fields.push fieldData
-        # console.log 'jsonSettings:'
-        # console.log JSON.stringify(jsonSettings)
-        element.css 'width','900px'  #; height: 400px;'
-        element.css 'height','500px'  #; height: 400px;'
-        renderOpt =
-          # TODO: check
-          selector: '#map'
-          # width: 500
-          # height: 400
-          rendererName: scope.$parent.selectedRenderer['rendererName']
-          # rendererName: 'vizshare.geoleaflet'
-          data: [jsonSettings]
-          vizOptions: scope.$parent.selectedRenderer.vizOptions
-          # vizOptions: options
-        # console.log 'Setting vizDef...'
-
-        $rootScope.vizDef = JSON.stringify([jsonSettings])
-        # scope.state.vizDef = JSON.stringify([jsonSettings])
-        # scope.$parent.vizDef = JSON.stringify([jsonSettings])
-        # console.log scope
-        # console.log scope.$parent
-        # console.log scope.$parent.vizDef
-        element.vizshare(renderOpt)
-    )
+          $rootScope.vizDef = JSON.stringify([jsonSettings])
+          # scope.state.vizDef = JSON.stringify([jsonSettings])
+          # $rootScope.vizDef = JSON.stringify([jsonSettings])
+          # console.log scope
+          # console.log $rootScope
+          # console.log $rootScope.vizDef
+          $rootScope.state.vizRendered = true
+          element.vizshare(renderOpt)
   ]
 
 vizBuilder.controller "VisualizationController", ($scope, RendererService) ->

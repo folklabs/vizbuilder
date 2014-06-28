@@ -50,11 +50,12 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
         model.source = data[0]
         # console.log model
 
-    model.createGroupAggregateDataTable = (groupField, aggField) ->
+    model.createGroupAggregateDataTable = (groupField, aggField, aggType) ->
       deferred = $q.defer()
       # TODO: fix
       dataunity.config.setBaseUrl 'http://data-unity.com' #window.data_unity_url
-      tableCreated = dataunity.querytemplate.createGroupAggregateDataTable 'name', this['@id'], groupField, aggField
+
+      tableCreated = dataunity.querytemplate.createGroupAggregateDataTable 'name', this['@id'], groupField, aggField, aggType
       tableCreated.done (dataTableURL) ->
         # console.log 'dataTableURL'
         # console.log dataTableURL
@@ -93,7 +94,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
       url = window.data_unity_url + '/jobs/datatable-jobs'
       # dataIn = JSON.stringify {"dataTable": this['@id']}
       dataIn = {"dataTable": this['@id']}
-      $http.post(url, dataIn, {cache: false, timeout: 3000}).
+      $http.post(url, dataIn, {cache: false, timeout: 9000}).
         success((data, status, headers, config) ->
           console.log 'success (creating a job)'
           jobID = headers()['location'].replace url, ''
@@ -104,6 +105,10 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
         ).
         error((dataE, statusE, headersE, configE) ->
           console.log 'error!'
+          console.log statusE
+          console.log headersE
+          console.log dataE
+          console.log configE
           # $http.post(url, dataIn, {timeout: 2000}).
           #   success((data, status, headers, config) ->
           #     console.log 'success 2'
@@ -162,10 +167,10 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
     console.log 'fetchTable'
     tableURL = tableRef['@id']
     id = tableURL.substring tableURL.lastIndexOf('/') + 1
-    dtPromise = Restangular.one('datatables', id).get()
-    dtPromise.then (datatable) ->
-      console.log 'fetchFields promise'
-      datatable.fetchFields()
+    dtPromise = Restangular.one('datatables', id).get({retrieve: 'structure'})
+    # dtPromise.then (datatable) ->
+    #   console.log 'fetchFields promise'
+    #   datatable.fetchFields()
     return dtPromise
 
 
@@ -188,6 +193,7 @@ renderers = [
           vizField: 'yAxis'
           dataType: ['decimal']
           required: true
+          needsAggregate: true
         }
       ]
     ]
@@ -211,6 +217,7 @@ renderers = [
           vizField: 'value'
           dataType: ['decimal']
           required: true
+          needsAggregate: true
         }
       ]
     ]
