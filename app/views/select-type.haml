@@ -1,10 +1,10 @@
 %h2 Choose visualisation
 
-%wizard-progress-bar{'active-step'=>'type'}
+%wizard-progress-bar{'active-step'=>'select-type'}
 
 .buttons
   %a{'href' => '#/select-columns'}
-    .btn.btn-primary.pull-right Choose columns
+    .btn.btn-primary.pull-right{'ng-class'=> '{disabled: state.renderer == undefined}'} Choose columns
   %a{'href' => '#/'}
     .btn.btn-default Back
 

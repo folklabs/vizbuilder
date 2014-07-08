@@ -1,10 +1,10 @@
 %h2 Select columns
 
-%wizard-progress-bar{'active-step'=>'columns'}
+%wizard-progress-bar{'active-step'=>'select-columns'}
 
 .buttons
   %a{'href' => '#/visualization'}
-    .btn.btn-primary.pull-right Plot visualization
+    .btn.btn-primary.pull-right{'ng-class'=> '{disabled: ! isAllColumnsSelected}'} Plot visualization
   %a{'href' => '#/select-type'}
     .btn.btn-default Back
 
@@ -13,7 +13,8 @@
   / %div{'ng-if' => 'structureAvailable'}
   / TODO: datasets array access
   .col-md-8{"ng-repeat"=>"field in state.renderer.datasets[0].fields"}
-    %h4 Assign column(s) to the {{ field.vizField }}
+    %h4 Assign a column to the {{ field.label }} visualization field
+    %p {{field.description}}
     %hr
     .list-group
       %a.list-group-item{"ng-repeat"=>"col in state.dataset.structure.component | orderBy:'fieldRef'", 'ng-click'=>'selectColForField(field, col)', 'ng-class'=>'{active: col.selected[field.vizField]}'}

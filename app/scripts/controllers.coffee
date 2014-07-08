@@ -5,19 +5,19 @@ vizBuilder = angular.module("vizBuilder")
 # Wizard steps config
 STEPS = [
   {
-    name: 'datasets'
+    name: 'datatables'
     text: 'Select datasets'
   }
   {
-    name: 'type'
+    name: 'select-type'
     text: 'Select visualization type'
   }
   {
-    name: 'columns'
+    name: 'select-columns'
     text: 'Select data columns'
   }
   {
-    name: 'visualize'
+    name: 'visualization'
     text: 'Edit visualization'
   }
 ]
@@ -47,14 +47,18 @@ vizBuilder.directive 'initModel', ['$rootScope', '$compile', ($rootScope, $compi
 
     $rootScope.imagePath = element.attr 'image-path'
     console.log element[0].value
-    scope.vizDef = element[0].value
-    element.attr 'ng-model', 'vizDef'
+    console.log $rootScope.state
+    if element[0].value != undefined and element[0].value.length > 0
+      $rootScope.state.vizDef = JSON.parse element[0].value
+      console.log JSON.parse element[0].value
+    console.log $rootScope.state
+    # element.attr 'ng-model', 'state.vizDef'
     element.removeAttr 'init-model'
     $compile(element)(scope)
     # scope.activeStep = attrs.activeStep
     # scope.steps = STEPS
-    console.log 'scope'
-    console.log scope
+    console.log '$rootScope'
+    console.log $rootScope
   ]
 
 vizBuilder.directive 'wizardProgressBar', ->
@@ -64,6 +68,10 @@ vizBuilder.directive 'wizardProgressBar', ->
     # console.log attrs
     scope.activeStep = attrs.activeStep
     scope.steps = STEPS
+    index = 0
+    while scope.steps[index].name != scope.activeStep
+      scope.steps[index].completed = true
+      index += 1
   templateUrl: '/views/wizard-progress-bar.html'
 
 
@@ -72,12 +80,14 @@ vizBuilder.directive 'wizardProgressBar', ->
 
 vizBuilder.controller "VizDefController", ($scope, $rootScope) ->
   console.log 'VizDefController'
-  $rootScope.state = {}
+  if $rootScope.state == undefined
+    $rootScope.state = {}
 
   # Copy vizDef info to make it accessible
-  $rootScope.$watch('vizDef', (newVal, old) ->
-    $scope.state.vizDef = newVal
-  )
+  # $rootScope.$watch('vizDef', (newVal, old) ->
+  #   console.log 'vizDef changing ' + newVal + ' ' + old
+  #   # $scope.state.vizDef = newVal
+  # )
 
 
 vizBuilder.controller "VizBuilderController", ($scope) ->
@@ -87,28 +97,23 @@ vizBuilder.controller "VizBuilderController", ($scope) ->
 vizBuilder.controller "DatatableController", ($scope, $rootScope, DatatableService) ->
   $scope.select = (dataset) ->
     dataset.selected = !dataset.selected
-    $rootScope.state.dataset = dataset
+    if dataset.selected
+      $rootScope.state.dataset = dataset
+    else
+      $rootScope.state.dataset = undefined
     # console.log $$rootScope
     dataset.btnState = 'btn-primary'
     dataset.btnState = 'btn-danger' if dataset.selected
 
-    # tablePromise = DatatableService.fetchTable dataset
-    # tablePromise.then (table) ->
-    #   console.log 'table'
-    #   console.log table
-    #   # table.createGroupAggregateDataTable 'Total Pay Floor (?)', 'Organisation'
-    #   tableCreated = table.createGroupAggregateDataTable 'Country', 'Number'
-    #   console.log tableCreated
-    #   tableCreated.then (dataTableURL) ->
-    #     console.log dataTableURL
-    #     newTable = DatatableService.fetchTable {'@id': dataTableURL}
-    #     console.log newTable
+  if $scope.datatables == undefined
+    tablesFetched = DatatableService.fetchTables()
+    tablesFetched.then (data) ->
+      console.log 'tablesFetched'
+      $rootScope.datatables = data
+      console.log data
 
-  tablesFetched = DatatableService.fetchTables()
-  tablesFetched.then (data) ->
-    console.log 'tablesFetched'
-    $scope.datatables = data
-    console.log data
+
+
 
     # data[0].fetchSources()
 
@@ -178,6 +183,11 @@ vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService
     # console.log col
     field.col = col
     col.selected[field.vizField] = ! col.selected[field.vizField]
+    isAllColumnsSelected = true
+    for field in $rootScope.state.renderer.datasets[0].fields
+      if field.col == undefined
+        isAllColumnsSelected = false
+    $scope.isAllColumnsSelected = isAllColumnsSelected
 
 
 vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootScope, DatatableService) ->
@@ -186,9 +196,12 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
   # template: '<div class="angular-leaflet-map"><div ng-transclude></div></div>'
   link: (scope, element, attrs) ->
     console.log 'directive visualization'
-    console.log $rootScope.state.aggregationMethod
+
+    element.css 'width','900px'  #; height: 400px;'
+    element.css 'height','500px'  #; height: 400px;'
+    # console.log $rootScope.state.aggregationMethod
     vizType = $rootScope.state.renderer.type
-    jsonSettings =
+    vizDef =
       "name": "default"
       "contentType": "text/csv"
       "visualizationType": vizType
@@ -206,62 +219,114 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
     console.log dataset.fields[1].col['fieldRef']
     console.log dataTable
 
-    groupField = dataset.fields[0].col['fieldRef']
-    aggField = dataset.fields[1].col['fieldRef']
-    aggType = $rootScope.state.aggregationMethod
+    renderOpt =
+      # TODO: check
+      selector: '#map'
+      # width: 500
+      # height: 400
+      rendererName: $rootScope.state.renderer['rendererName']
+      # rendererName: 'vizshare.geoleaflet'
+      # data: [vizDef]
+      vizOptions: $rootScope.state.renderer.vizOptions
 
-    fieldNames = dataunity.querytemplate.groupAggregateDataTableFieldNames(groupField, aggField, aggType)
-    console.log 'fieldNames'
-    console.log fieldNames
-    if dataset.type != 'geoleaflet'
+    if $rootScope.state.renderer.type != 'geoleaflet'
+      console.log 'Getting endpoint for a chart'
+      groupDataField = null
+      aggDataField = null
+      for f in dataset.fields
+        if f.needsGroup
+          groupDataField = f.col['fieldRef']
+        if f.needsAggregate
+          aggDataField = f.col['fieldRef']
+
+      # groupField = dataset.fields[0].col['fieldRef']
+      # aggField = dataset.fields[1].col['fieldRef']
+      aggType = $rootScope.state.aggregationMethod
+
+      fieldNames = dataunity.querytemplate.groupAggregateDataTableFieldNames(groupDataField, aggDataField, aggType)
+      # console.log 'fieldNames'
+      console.log fieldNames
+
       groupField = fieldNames.groupField
       aggField = fieldNames.aggField
 
-    tableCreated = dataTable.createGroupAggregateDataTable groupField, aggField, aggType
-    console.log tableCreated
-    tableCreated.then (dataTableURL) ->
-      console.log dataTableURL
-      tableFetched = DatatableService.fetchTable {'@id': dataTableURL}
-      console.log tableFetched
-      tableFetched.then (pipeDataTable) ->
-        # Set the URL where to get the data
-        endPoint = pipeDataTable.getDataEndpoint (endpoint) ->
-          # console.log endpoint
-          jsonSettings['url'] = endpoint
-          # TODO: Hardcoded dataset access
-          for f in dataset.fields
-            console.log f.col
-            dataField = groupField
-            if f.needsAggregate
-              dataField = aggField
-            fieldData =
-              vizField: f.vizField
-              dataField: dataField
-            jsonSettings.fields.push fieldData
-          # console.log 'jsonSettings:'
-          # console.log JSON.stringify(jsonSettings)
-          element.css 'width','900px'  #; height: 400px;'
-          element.css 'height','500px'  #; height: 400px;'
-          renderOpt =
-            # TODO: check
-            selector: '#map'
-            # width: 500
-            # height: 400
-            rendererName: $rootScope.state.renderer['rendererName']
-            # rendererName: 'vizshare.geoleaflet'
-            data: [jsonSettings]
-            vizOptions: $rootScope.state.renderer.vizOptions
-            # vizOptions: options
-          # console.log 'Setting vizDef...'
+      # Set new name in data fields
+      for f in dataset.fields
+        if f.needsGroup
+          f.col['fieldRef'] = fieldNames.groupField
+        if f.needsAggregate
+          f.col['fieldRef'] = fieldNames.aggField
 
-          $rootScope.vizDef = JSON.stringify([jsonSettings])
-          # scope.state.vizDef = JSON.stringify([jsonSettings])
-          # $rootScope.vizDef = JSON.stringify([jsonSettings])
-          # console.log scope
-          # console.log $rootScope
-          # console.log $rootScope.vizDef
-          $rootScope.state.vizRendered = true
-          element.vizshare(renderOpt)
+      console.log dataset
+
+      tableCreated = dataTable.createGroupAggregateDataTable groupDataField, aggDataField, aggType
+      console.log tableCreated
+      tableCreated.then (dataTableURL) ->
+        console.log dataTableURL
+        tableFetched = DatatableService.fetchTable {'@id': dataTableURL}
+        console.log tableFetched
+        tableFetched.then (pipeDataTable) ->
+          console.log 'tableFetched'
+          console.log pipeDataTable
+          # Set the URL where to get the data
+          pipeDataTable.getDataEndpoint (endpoint) ->
+            # console.log endpoint
+            vizDef['url'] = endpoint
+            # TODO: Hardcoded dataset access
+            for f in dataset.fields
+              console.log f.col
+              # dataField = groupField
+              # if f.needsAggregate
+              #   dataField = aggField
+              fieldData =
+                vizField: f.vizField
+                dataField: f.col['fieldRef']
+              vizDef.fields.push fieldData
+            # console.log 'vizDef:'
+            # console.log JSON.stringify(vizDef)
+            renderOpt.data = [vizDef]
+
+              # vizOptions: options
+            # console.log 'Setting vizDef...'
+
+            $rootScope.state.vizDef = JSON.stringify([vizDef])
+            # scope.state.vizDef = JSON.stringify([vizDef])
+            # $rootScope.vizDef = JSON.stringify([vizDef])
+            # console.log scope
+            # console.log $rootScope
+            # console.log $rootScope.vizDef
+            $rootScope.state.vizRendered = true
+            element.vizshare(renderOpt)
+    else
+      console.log 'Getting endpoint for a map'
+      dataTable.getDataEndpoint (endpoint) ->
+        # console.log endpoint
+        vizDef['url'] = endpoint
+        # TODO: Hardcoded dataset access
+        for f in dataset.fields
+          console.log f.col
+          # dataField = groupField
+          # if f.needsAggregate
+          #   dataField = aggField
+          fieldData =
+            vizField: f.vizField
+            dataField: f.col['fieldRef']
+          vizDef.fields.push fieldData
+        # console.log 'vizDef:'
+        # console.log JSON.stringify(vizDef)
+        renderOpt.data = [vizDef]
+
+          # vizOptions: options
+        # console.log 'Setting vizDef...'
+
+        # $rootScope.vizDef = JSON.stringify([vizDef])
+        $rootScope.state.vizDef = JSON.stringify([vizDef])
+        # $rootScope.vizDef = JSON.stringify([vizDef])
+        # console.log scope
+        # console.log $rootScope
+        # console.log $rootScope.vizDef
+        $rootScope.state.vizRendered = true
+        element.vizshare(renderOpt)
   ]
 
 vizBuilder.controller "VisualizationController", ($scope, RendererService) ->

@@ -68,7 +68,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
       console.log 'poll: ' + url
       $http.get(url, {timeout: 1000}).
         success((data, status, headers, config) ->
-          console.log 'success'
+          console.log 'success: ' + status + ' ' + data.status
           if (data.status == 'completed')
             callback(data.data)
           else
@@ -92,9 +92,10 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
       console.log this['@id']
       # console.log this
       url = window.data_unity_url + '/jobs/datatable-jobs'
+      console.log url
       # dataIn = JSON.stringify {"dataTable": this['@id']}
       dataIn = {"dataTable": this['@id']}
-      $http.post(url, dataIn, {cache: false, timeout: 9000}).
+      $http.post(url, dataIn, {cache: false, timeout: 19000}).
         success((data, status, headers, config) ->
           console.log 'success (creating a job)'
           jobID = headers()['location'].replace url, ''
@@ -187,11 +188,16 @@ renderers = [
         {
           vizField: 'xAxis'
           dataType: ['string']
+          label: "X axis"
+          description: "This defines the horizontal labels"
           required: true
+          needsGroup: true
         }
         {
           vizField: 'yAxis'
           dataType: ['decimal']
+          label: "Y axis"
+          description: "This defines the size each bar"
           required: true
           needsAggregate: true
         }
@@ -211,11 +217,17 @@ renderers = [
         {
           vizField: 'name'
           dataType: ['string']
+          label: "Name"
+          description: "This defines the label of a segment"
           required: true
+          needsGroup: true
+
         }
         {
           vizField: 'value'
           dataType: ['decimal']
+          label: "Value"
+          description: "This defines the size of a segment"
           required: true
           needsAggregate: true
         }
@@ -233,19 +245,27 @@ renderers = [
       name: 'dataset1'
       "fields": [
         {
-            "vizField": "lat",
+            "vizField": "lat"
+            "label": "Latitude"
+            "description": "This defines the horizontal position on the map"
             "dataField": "Lat"
         },
         {
-            "vizField": "long",
+            "vizField": "long"
+            "label": "Longitude"
+            "description": "This defines the vertical position on the map"
             "dataField": "Long"
         },
         {
-            "vizField": "title",
+            "vizField": "title"
+            "label": "Title"
+            "description": "The content of the popup."
             "dataField": "Name"
         },
         {
-            "vizField": "value",
+            "vizField": "value"
+            "label": "Value"
+            "description": ""
             "dataField": "Value"
         }
       ]

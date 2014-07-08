@@ -1,12 +1,13 @@
 %h2 Choose datasets
 
-%wizard-progress-bar{'active-step'=>'datasets'}
+%wizard-progress-bar{'active-step'=>'datatables'}
 
 .buttons
-  %a{'href' => '#/select-type'}
-    .btn.btn-primary.pull-right Select visualization type
+  %a.disabled{'href' => '#/select-type', 'disabled'=>true}
 
-%h4 Add one or more datasets you wish to visualize by clicking the <span class="glyphicon glyphicon-plus-sign"></span> button.
+    .btn.btn-primary.pull-right{'ng-class'=> '{disabled: state.dataset == undefined}'} Select visualization type
+
+%h4 Add one or more datasets you wish to visualize by clicking the "Select" button.
 %hr
 
 .row

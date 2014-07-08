@@ -1,2 +1,4 @@
 
-.wizard-box{'ng-repeat'=>'step in steps', 'ng-class'=>'{active: activeStep == step.name}'} {{step.text}}
+.wizard-box{'ng-repeat'=>'step in steps', 'ng-class'=>'{active: activeStep == step.name, completed: step.completed}'}
+  %a{'href'=>'#/{{step.name}}', 'ng-show'=>'step.completed'} {{step.text}}
+  %div{'ng-show'=>'! step.completed'} {{step.text}}
