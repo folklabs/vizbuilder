@@ -8,7 +8,6 @@
   %a{'href' => '#/select-type'}
     .btn.btn-default Back
 
-
 .row
   / %div{'ng-if' => 'structureAvailable'}
   / TODO: datasets array access
@@ -23,4 +22,4 @@
     %div{'ng-show' => 'field.needsAggregate'}
       %h5 Select aggregation function for this column
       %label.radio{"ng-repeat"=>"method in aggregationMethods"}
-        %input{'type'=>"radio", 'name'=>"inlineRadioOptions", 'id'=>"{{method}}", 'value'=>"{{method}}", 'ng-model'=>'state.aggregationMethod'} {{method}}
+        %input{'type'=>"radio", 'name'=>"inlineRadioOptions", 'value'=>"{{method.name}}", 'ng-model'=>'state.aggregationMethod'} {{method.name}}: {{method.description}}
