@@ -23,13 +23,13 @@ STEPS = [
 ]
 
 AGGREGATION_METHODS = [
-  "Count"
-  "Sum"
-  "Average"
-  "Min"
-  "Max"
-  "First"
-  "Last"
+  {name: "Count", description: 'Shows the total number of items'}
+  {name: "Sum", description: 'Shows the sum of all the item values'}
+  {name: "Average", description: 'Shows the mean average of all the item values'}
+  {name: "Min", description: 'Shows the minimum value from all the item values'}
+  {name: "Max", description: 'Shows the maximum value from all the item values'}
+  {name: "First", description: 'Shows the first value in the list of values'}
+  {name: "Last", description: 'Shows the last value in the list of values'}
 ]
 
 
@@ -48,9 +48,14 @@ vizBuilder.directive 'initModel', ['$rootScope', '$compile', ($rootScope, $compi
     $rootScope.imagePath = element.attr 'image-path'
     console.log element[0].value
     console.log $rootScope.state
-    if element[0].value != undefined and element[0].value.length > 0
-      $rootScope.state.vizDef = JSON.parse element[0].value
-      console.log JSON.parse element[0].value
+    vizDefContent = element[0].value
+    if vizDefContent != undefined
+      vizDefContent = vizDefContent.replace /^\s+|\s+$/g, ""
+    if vizDefContent.length > 0
+      $rootScope.state.vizDef = JSON.parse vizDefContent
+      $rootScope.state.edit = true
+      console.log JSON.parse vizDefContent
+
     console.log $rootScope.state
     # element.attr 'ng-model', 'state.vizDef'
     element.removeAttr 'init-model'
@@ -112,6 +117,13 @@ vizBuilder.controller "DatatableController", ($scope, $rootScope, DatatableServi
       $rootScope.datatables = data
       console.log data
 
+      # Initialize existing state
+      if $rootScope.state.edit and $rootScope.state.vizDef[0].datatable
+        console.log 'Scanning to initialize datatable'
+        for d in data
+          if d['@id'] == $rootScope.state.vizDef[0].datatable['@id']
+            $scope.select d
+
 
 
 
@@ -133,9 +145,6 @@ vizBuilder.controller "DatatableController", ($scope, $rootScope, DatatableServi
 
 
 vizBuilder.controller "VisualizationTypeController", ($scope, $rootScope, RendererService, $http) ->
-  $scope.renderers = RendererService.getRenderers()
-  # console.log $scope.renderers
-
   $scope.selectRenderer = (renderer) ->
     console.log 'selectRenderer'
     for r in $scope.renderers
@@ -144,21 +153,63 @@ vizBuilder.controller "VisualizationTypeController", ($scope, $rootScope, Render
     console.log $rootScope.state
     renderer.selected = true
 
+  $scope.renderers = RendererService.getRenderers()
+  # console.log $scope.renderers
+
+  # Initialize existing state
+  if $rootScope.state.edit and $rootScope.state.vizDef[0].visualizationType
+    for r in $scope.renderers
+      if r.type == $rootScope.state.vizDef[0].visualizationType
+        $scope.selectRenderer r
 
 vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService, RendererService) ->
+  $scope.selectColForField = (field, col) ->
+    if col['selected'] == undefined
+      col.selected = {}
+    for c in $rootScope.state.dataset['structure']['component']
+      c.selected[field.vizField] = false if c.selected != undefined
+    # console.log field
+    # console.log col
+    field.col = col
+    col.selected[field.vizField] = ! col.selected[field.vizField]
+
+    # Check if all columns have been selected and we can move to next step
+    isAllColumnsSelected = true
+    for field in $rootScope.state.renderer.datasets[0].fields
+      if field.col == undefined
+        isAllColumnsSelected = false
+    $scope.isAllColumnsSelected = isAllColumnsSelected
+
+  # $scope.selectAggregationMethod = (method) ->
+  #   $scope.selectedMethod = method
+
   console.log 'ColumnsController'
   console.log $rootScope.state.dataset
   console.log $rootScope.state.renderer
   $scope.aggregationMethods = AGGREGATION_METHODS
   $rootScope.state.aggregationMethod = "Count"
-  # $scope.selectedMethod = "Count"
-  console.log $scope
-  $scope.$watch 'state.aggregationMethod', (newVal) ->
+  $scope.a = {}
+  # $scope.a.aggregationMethod = "Count"
+  $scope.aggregationMethod = "Count"
+  $scope.$watch 'state.aggregationMethod', (newVal, oldVal) ->
     console.log 'aggregationMethod ' + newVal
+  $scope.$watch 'aggregationMethod2', (newVal, oldVal) ->
+    console.log 'aggregationMethod2 ' + newVal
+
+  # Initialize existing state
+  if $rootScope.state.edit
+    for fieldMapping in $rootScope.state.vizDef[0].fields
+      fieldMatch = undefined
+      for field in $rootScope.state.renderer.datasets[0].fields
+        if field.vizField = fieldMapping.vizField
+          fieldMatch = field
+      colMatch = undefined
+      for col in $rootScope.state.dataset['structure']['component']
+        if col.fieldRef == fieldMapping.dataField
+          colMatch = col
+      $scope.selectColForField fieldMatch, colMatch
 
 
-  $scope.selectAggregationMethod = (method) ->
-    $scope.selectedMethod = method
 
   # TODO: is any of this needed if structure is retrieved earlier?
   # if ! $$rootScope.state.dataset.structure
@@ -174,20 +225,7 @@ vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService
   # else
   #   $scope.structureAvailable = true
 
-  $scope.selectColForField = (field, col) ->
-    if col.selected == undefined
-      col.selected = {}
-    for c in $rootScope.state.dataset['structure']['component']
-      c.selected[field.vizField] = false if c.selected != undefined
-    # console.log field
-    # console.log col
-    field.col = col
-    col.selected[field.vizField] = ! col.selected[field.vizField]
-    isAllColumnsSelected = true
-    for field in $rootScope.state.renderer.datasets[0].fields
-      if field.col == undefined
-        isAllColumnsSelected = false
-    $scope.isAllColumnsSelected = isAllColumnsSelected
+
 
 
 vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootScope, DatatableService) ->
@@ -207,6 +245,8 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
       "visualizationType": vizType
       "fields": []
       "vizOptions": $rootScope.state.renderer.vizOptions
+      datatable:
+        '@id': $rootScope.state.dataset['@id']
 
     # console.log scope
     # console.log $rootScope.state.dataset
@@ -268,6 +308,7 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
         tableFetched.then (pipeDataTable) ->
           console.log 'tableFetched'
           console.log pipeDataTable
+          vizDef['datatable_url'] = dataTableURL
           # Set the URL where to get the data
           pipeDataTable.getDataEndpoint (endpoint) ->
             # console.log endpoint
@@ -299,9 +340,10 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
             element.vizshare(renderOpt)
     else
       console.log 'Getting endpoint for a map'
+      vizDef['datatable_url'] = dataTable['@id']
       dataTable.getDataEndpoint (endpoint) ->
         # console.log endpoint
-        vizDef['url'] = endpoint
+        # vizDef['url'] = endpoint
         # TODO: Hardcoded dataset access
         for f in dataset.fields
           console.log f.col
@@ -314,10 +356,14 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
           vizDef.fields.push fieldData
         # console.log 'vizDef:'
         # console.log JSON.stringify(vizDef)
-        renderOpt.data = [vizDef]
+        renderDef = angular.copy vizDef
+        renderDef['url'] = endpoint
+        renderOpt.data = [renderDef]
 
           # vizOptions: options
-        # console.log 'Setting vizDef...'
+        console.log 'Setting vizDef...'
+        console.log vizDef
+        console.log renderDef
 
         # $rootScope.vizDef = JSON.stringify([vizDef])
         $rootScope.state.vizDef = JSON.stringify([vizDef])

@@ -52,8 +52,11 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
 
     model.createGroupAggregateDataTable = (groupField, aggField, aggType) ->
       deferred = $q.defer()
-      # TODO: fix
-      dataunity.config.setBaseUrl 'http://data-unity.com' #window.data_unity_url
+
+      urlElement = document.createElement("a")
+      urlElement.href = window.data_unity_url
+      duBaseUrl = 'http://' + urlElement.hostname
+      dataunity.config.setBaseUrl duBaseUrl
 
       tableCreated = dataunity.querytemplate.createGroupAggregateDataTable 'name', this['@id'], groupField, aggField, aggType
       tableCreated.done (dataTableURL) ->
@@ -95,7 +98,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
       console.log url
       # dataIn = JSON.stringify {"dataTable": this['@id']}
       dataIn = {"dataTable": this['@id']}
-      $http.post(url, dataIn, {cache: false, timeout: 19000}).
+      $http.post(url, dataIn, {cache: false, timeout: 60000}).
         success((data, status, headers, config) ->
           console.log 'success (creating a job)'
           jobID = headers()['location'].replace url, ''
