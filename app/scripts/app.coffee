@@ -2,6 +2,7 @@
 DATA_UNITY_URL = 'http://0.0.0.0:6543/api/beta'
 # DATA_UNITY_URL = 'http://dataunity.apiary-mock.com/api/beta'
 DATA_UNITY_HOST = 'http://data-unity.com'
+DATA_UNITY_HOST = 'http://lambeth.dataunityapp.com'
 DATA_UNITY_URL = DATA_UNITY_HOST + '/api/beta'
 
 # Create vizBuilder module
@@ -39,6 +40,7 @@ vizBuilder.config (RestangularProvider) ->
   url = DATA_UNITY_URL
   console.log window.data_unity_url
   if window.data_unity_url != undefined
+    console.log 'Getting DATA_UNITY_URL from window environment...'
     url = window.data_unity_url
   else
     window.data_unity_url = DATA_UNITY_URL
