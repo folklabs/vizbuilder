@@ -22,7 +22,7 @@
         {{(dataset.source.distribution.issued | date:'d MMM yyyy') || "Unknown"}}
       %p
         %strong Source:
-        {{dataset.source.distribution.author || "Unknown"}}
+        {{dataset.source.publisher.label || "Unknown"}}
       %p.pull-right
         %strong Modified:
         {{(dataset.source.distribution.modified | date:'d MMM yyyy') || "Unknown"}}
