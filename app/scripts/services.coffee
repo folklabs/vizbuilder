@@ -301,20 +301,33 @@ renderers = [
             }
         ],
         "marks": [
-            {
-                "type": "latlongcircle",
-                "from": {"data": "default"},
-                "properties": {
-                    "enter": {
-                        "lat": {"vizField": "lat"},
-                        "long": {"vizField": "long"},
-                        # "size": {"scale": "onetoten", "vizField": "value"},
-                        "text": {"vizField": "title"},
-                        "fill": {"scale": "colours", "vizField": "value"}
-                    }
-                }
-            }
-        ]
+                       {
+                           "type": "latlongmarker",
+                           "from": {"data": "default"},
+                           "properties": {
+                               "enter": {
+                                   "lat": {"vizField": "lat"},
+                                   "long": {"vizField": "long"},
+                                   "text": {"vizField": "title"}
+                               }
+                           }
+                       }
+                   ]
+        # "marks": [
+        #     {
+        #         "type": "latlongcircle",
+        #         "from": {"data": "default"},
+        #         "properties": {
+        #             "enter": {
+        #                 "lat": {"vizField": "lat"},
+        #                 "long": {"vizField": "long"},
+        #                 # "size": {"scale": "onetoten", "vizField": "value"},
+        #                 "text": {"vizField": "title"},
+        #                 "fill": {"scale": "colours", "vizField": "value"}
+        #             }
+        #         }
+        #     }
+        # ]
     }
   }
 ]
