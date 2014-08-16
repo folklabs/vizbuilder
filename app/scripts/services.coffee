@@ -2,6 +2,7 @@
 # DATA_UNITY_URL = 'http://0.0.0.0:6543/'
 # DATA_UNITY_URL = 'http://data-unity.com/'
 
+CREATE_JOB_TIMEOUT = 60000
 
 vizBuilder = angular.module('vizBuilder')
 
@@ -88,6 +89,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
             , 1000
           else
             console.log(data)
+            callback(null, status)
         )
 
     model.getDataEndpoint = (callback) ->
@@ -98,7 +100,7 @@ vizBuilder.factory 'DatatableService', ($q, $timeout, $http, Restangular, $rootS
       console.log url
       # dataIn = JSON.stringify {"dataTable": this['@id']}
       dataIn = {"dataTable": this['@id']}
-      $http.post(url, dataIn, {cache: false, timeout: 60000}).
+      $http.post(url, dataIn, {cache: false, timeout: CREATE_JOB_TIMEOUT}).
         success((data, status, headers, config) ->
           console.log 'success (creating a job)'
           jobID = headers()['location'].replace url, ''

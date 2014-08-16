@@ -1,7 +1,8 @@
 %wizard-progress-bar{'active-step'=>'visualization'}
 
 .buttons
-  %input.btn.btn-primary.pull-right{'type'=>'submit', 'id'=>'edit-submit', 'name'=>"op", 'value'=>"Add metadata"}
+  %input.btn.btn-primary.pull-right{'type'=>'submit', 'id'=>'add-submit', 'name'=>"op", 'value'=>"Add metadata", 'ng-click'=>'handleFormSubmit()', 'ng-hide'=>'state.edit'}
+  %input.btn.btn-primary.pull-right{'type'=>'submit', 'id'=>'edit-submit', 'name'=>"op", 'value'=>"Save changes", 'ng-click'=>'handleFormSubmit()', 'ng-show'=>'state.edit'}
   %a{'href' => '#/select-columns'}
     .btn.btn-default Back
 
@@ -10,8 +11,11 @@
 %hr
 
 %div.text-center{"ng-hide"=>"state.vizRendered"}
-  %i.fa.fa-spinner.fa-spin.fa-5x
+  .progress
+    .progress-bar.progress-bar-info{"role"=>"progress-bar", "style"=>"{{progressWidth}}"}
   %p.text-center Building visualization...
+  %h3.text-center{"ng-show"=>"state.status == 'error'"} Error in creating visualization!
+
 
 .visualization{'visualization'=>true, 'id'=>'visualization'}
 

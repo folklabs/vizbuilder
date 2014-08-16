@@ -47,6 +47,8 @@ vizBuilder.directive 'initModel', ['$rootScope', '$compile', ($rootScope, $compi
 
     $rootScope.imagePath = element.attr 'image-path'
     console.log element[0].value
+    if $rootScope.state == undefined
+      $rootScope.state = {}
     console.log $rootScope.state
     vizDefContent = element[0].value
     if vizDefContent != undefined
@@ -164,12 +166,13 @@ vizBuilder.controller "VisualizationTypeController", ($scope, $rootScope, Render
 
 vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService, RendererService) ->
   $scope.selectColForField = (field, col) ->
+    console.log 'selectColForField'
     if col['selected'] == undefined
       col.selected = {}
     for c in $rootScope.state.dataset['structure']['component']
       c.selected[field.vizField] = false if c.selected != undefined
-    # console.log field
-    # console.log col
+    console.log field
+    console.log col
     field.col = col
     col.selected[field.vizField] = ! col.selected[field.vizField]
 
@@ -193,21 +196,25 @@ vizBuilder.controller "ColumnsController", ($scope, $rootScope, DatatableService
   $scope.aggregationMethod = "Count"
   $scope.$watch 'state.aggregationMethod', (newVal, oldVal) ->
     console.log 'aggregationMethod ' + newVal
-  $scope.$watch 'aggregationMethod2', (newVal, oldVal) ->
-    console.log 'aggregationMethod2 ' + newVal
 
   # Initialize existing state
   if $rootScope.state.edit
+    console.log $rootScope.state.vizDef
     for fieldMapping in $rootScope.state.vizDef[0].fields
+      # console.log fieldMapping
       fieldMatch = undefined
       for field in $rootScope.state.renderer.datasets[0].fields
-        if field.vizField = fieldMapping.vizField
+        # console.log field
+        if field.vizField == fieldMapping.vizField
           fieldMatch = field
       colMatch = undefined
       for col in $rootScope.state.dataset['structure']['component']
-        if col.fieldRef == fieldMapping.dataField
+        if col.fieldRef == fieldMapping.fieldRefLabel
           colMatch = col
-      $scope.selectColForField fieldMatch, colMatch
+      if fieldMatch != undefined and colMatch != undefined
+        $scope.selectColForField fieldMatch, colMatch
+      else
+        console.log 'Existing state: field match failed: ' + fieldMatch + ', ' + colMatch
 
 
 
@@ -292,16 +299,18 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
 
       # Set new name in data fields
       for f in dataset.fields
+        f.vizDataFieldName = f.col['fieldRef']
         if f.needsGroup
-          f.col['fieldRef'] = fieldNames.groupField
+          f.vizDataFieldName = fieldNames.groupField
         if f.needsAggregate
-          f.col['fieldRef'] = fieldNames.aggField
+          f.vizDataFieldName = fieldNames.aggField
 
       console.log dataset
 
       tableCreated = dataTable.createGroupAggregateDataTable groupDataField, aggDataField, aggType
       console.log tableCreated
       tableCreated.then (dataTableURL) ->
+        $rootScope.progressWidth = 'width: 50%'
         console.log dataTableURL
         tableFetched = DatatableService.fetchTable {'@id': dataTableURL}
         console.log tableFetched
@@ -309,9 +318,14 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
           console.log 'tableFetched'
           console.log pipeDataTable
           vizDef['datatable_url'] = dataTableURL
+
           # Set the URL where to get the data
-          pipeDataTable.getDataEndpoint (endpoint) ->
+          pipeDataTable.getDataEndpoint (endpoint, status) ->
+            if status != 'completed'
+              console.log 'Error! Status = ' + status
+              $rootScope.state.status = 'error'
             # console.log endpoint
+            $rootScope.progressWidth = 'width: 80%'
             vizDef['url'] = endpoint
             # TODO: Hardcoded dataset access
             for f in dataset.fields
@@ -321,7 +335,8 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
               #   dataField = aggField
               fieldData =
                 vizField: f.vizField
-                dataField: f.col['fieldRef']
+                dataField: f.vizDataFieldName
+                fieldRefLabel: f.col['fieldRef']
               vizDef.fields.push fieldData
             # console.log 'vizDef:'
             # console.log JSON.stringify(vizDef)
@@ -330,18 +345,19 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
               # vizOptions: options
             # console.log 'Setting vizDef...'
 
-            $rootScope.state.vizDef = JSON.stringify([vizDef])
+            $rootScope.state.vizDef = [vizDef]
             # scope.state.vizDef = JSON.stringify([vizDef])
             # $rootScope.vizDef = JSON.stringify([vizDef])
             # console.log scope
             # console.log $rootScope
-            # console.log $rootScope.vizDef
+            console.log $rootScope.state.vizDef
             $rootScope.state.vizRendered = true
             element.vizshare(renderOpt)
     else
       console.log 'Getting endpoint for a map'
       vizDef['datatable_url'] = dataTable['@id']
       dataTable.getDataEndpoint (endpoint) ->
+        $rootScope.progressWidth = 'width: 80%'
         # console.log endpoint
         # vizDef['url'] = endpoint
         # TODO: Hardcoded dataset access
@@ -365,8 +381,8 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
         console.log vizDef
         console.log renderDef
 
-        # $rootScope.vizDef = JSON.stringify([vizDef])
-        $rootScope.state.vizDef = JSON.stringify([vizDef])
+        # $rootScope.state.vizDef = JSON.stringify([vizDef])
+        $rootScope.state.vizDef = [vizDef]
         # $rootScope.vizDef = JSON.stringify([vizDef])
         # console.log scope
         # console.log $rootScope
@@ -375,7 +391,12 @@ vizBuilder.directive 'visualization', ['$rootScope', 'DatatableService', ($rootS
         element.vizshare(renderOpt)
   ]
 
-vizBuilder.controller "VisualizationController", ($scope, RendererService) ->
+vizBuilder.controller "VisualizationController", ($scope, $rootScope, RendererService) ->
+  $scope.handleFormSubmit = () ->
+    console.log 'handleFormSubmit'
+    $rootScope.vizDefText = JSON.stringify $rootScope.state.vizDef
+
   $scope.renderers = RendererService.getRenderers()
+  $rootScope.progressWidth = 'width: 20%'
 
 
